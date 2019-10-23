@@ -1,2 +1,13 @@
 <p class="text-2xl">blogembed.com</p>
 <p class="text-sm text-gray-800">blogembed.com is a privacy-first blog delivery service that allows you to host your blog posts inside of iframes you can embed on your website instead of pointing to an outside host or building your own CMS.</p>
+
+<%= form_tag connections_connect_path(), :style => "margin:10px;",  :method => :post, :id => "connect_form", :authenticity_token => true, :remote => true do %>
+					
+	<div class="sm:focus-within:shadow-outline rounded-lg">
+        <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
+          <input type="email" id="dd_emailField" name="email" required="" placeholder="Enter your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-blue-500 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
+          <%= submit_tag "let's chat", :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-blue-500 hover:bg-blue-700 focus:bg-blue-700 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "connect_submit_button" %>
+        </div>
+    </div>
+
+<% end %>

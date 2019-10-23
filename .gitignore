@@ -29,3 +29,6 @@ yarn-debug.log*
 
 # Ignore c9 files
 /.c9/*
+
+# Ignore secrets
+/config/secrets.yml
