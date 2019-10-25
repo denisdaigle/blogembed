@@ -1,0 +1,20 @@
+branch-defaults:
+  master:
+    environment: Blogembed-env-1
+environment-defaults:
+  Blogembed-env-1:
+    branch: null
+    repository: null
+global:
+  application_name: BlogEmbed
+  default_ec2_keyname: null
+  default_platform: arn:aws:elasticbeanstalk:us-east-1::platform/Puma with Ruby 2.6
+    running on 64bit Amazon Linux/2.11.0
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: production
+  sc: git
+  workspace_type: Application
