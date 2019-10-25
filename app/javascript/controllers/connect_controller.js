@@ -18,7 +18,7 @@ export default class extends Controller {
 			event.preventDefault()
 		} else {
 			//allow form submit.
-			this.thankyouTarget.textContent = "thank you! An email is on its way!"
+			this.thankyouTarget.textContent = "Thank you! An email is on its way!"
 			this.thankyouTarget.classList.remove("hidden")
 			this.formTarget.classList.add("hidden")
 		}
