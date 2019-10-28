@@ -3,5 +3,8 @@ Rails.application.routes.draw do
   get 'pages/home'
   get 'pages/try'
   get 'pages/login'
+  
+  get '/welcome' => "pages#welcome"
+  
   root "pages#home" 
 end
