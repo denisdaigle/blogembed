@@ -48,4 +48,4 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-gem 'mailchimp-api', '2.0.6', require: 'mailchimp'
+gem "httparty", "0.17.1"
