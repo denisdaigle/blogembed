@@ -32,6 +32,7 @@ yarn-debug.log*
 
 # Ignore secrets
 /config/secrets.yml
+
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml

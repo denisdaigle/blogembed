@@ -1,1 +1,10 @@
-alert('Round trip made. <%= @next_step_message %>');
+<% if @result == "success" %>
+          
+  alert('Round trip made. <%= @next_step_message %>');
+
+<% else %>
+
+  alert('Looks like something went wrong: <%= @error_message %>');
+
+<% end %>
+
