@@ -1,0 +1,101 @@
+<div class="py-8 px-8 flex w-full sm:w-full md:w-1/2 lg:w-1/2 mx-auto mt-16">
+  
+  <div class="mx-auto">
+    
+    <div class="flex -ml-2">
+      <img src="<%= image_path('logo-1.svg') %>" style="height:70px;"/>
+      <p class="text-5xl">BlogEmbed</p>
+    </div>
+      
+    <p class="text-lg text-gray-800 mt-4">Alright! Let's set up your profile and get this going!</p>
+
+    <% if @result == "success" %>
+        
+        <div data-controller="profileSetup" class="mt-8">
+  
+          <%= form_tag user_profile_setup_path(), 'data-target' => "profileSetup.form", :method => :post, :id => "profileSetup_form", :authenticity_token => true, :remote => true do %>
+        	  
+        	  <%= hidden_field_tag :uid, @uid %>
+        	  
+        	  <div class="w-full max-w-lg">
+        	    
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="first_name">
+                    First Name
+                  </label>
+                  <input id="first_name" name="first_name" data-target="profileSetup.firstNameInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Jane">
+                  <p class="text-red-500 text-xs italic hidden" data-target="profileSetup.firstNameError"></p>
+                </div>
+                <div class="w-full md:w-1/2 px-3">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="last_name">
+                    Last Name
+                  </label>
+                  <input id="last_name" name="last_name" data-target="profileSetup.lastNameInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="Doe">
+                  <p class="text-red-500 text-xs italic hidden" data-target="profileSetup.lastNameError"></p>
+                </div>
+              </div>
+              
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="password">
+                    Password
+                  </label>
+                  <input id="password" name="password" data-target="profileSetup.passwordInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="password" placeholder="******************">
+                  <p class="text-red-500 text-xs italic hidden" data-target="profileSetup.passwordError"></p>
+                </div>
+              </div>
+              
+              <div class="flex flex-wrap -mx-3 mb-6">
+                <div class="w-full px-3">
+                  <div class="">
+                    <%= submit_tag "Continue", 'data-action' => 'click->profileSetup#submit', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "profile_setup_submit_button" %>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+
+          <% end %>
+          
+          <div class="flex hidden py-10 hidden" data-target="profileSetup.errorMessageHolder" id="profileSetup_errorMessageHolder">
+            
+            <div class="">
+              <span data-target="profileSetup.errorMessage" id="profileSetup_errorMessage" class="text-red-500 text-xl">
+    
+              </span>
+            </div>
+            
+          </div>
+          
+          <div class="flex hidden py-10" data-target="profileSetup.thankYouMessageHolder" id="profileSetup_thankYouMessageHolder">
+            
+            <div class="">
+              <span data-target="profileSetup.thankYou" class="text-gray-700 text-xl">
+    
+              </span>
+            </div>
+            
+            <div class="mt-5 ml-1">
+              <img src="<%= image_path('dots.svg') %>"/>
+            </div>
+            
+          </div>
+          
+        </div>
+        
+    <% else %>
+    
+        <div class="mt-8">
+          <span class="text-lg text-gray-800 mt-4"><%= @error_message %> Take me to the <a href="/" class="underline">sign up page</a> or <a href="/login" class="underline">login page</a></span>.
+        </div>
+        
+    <% end %>
+
+  </div>
+  
+</div>
+
+
+
+

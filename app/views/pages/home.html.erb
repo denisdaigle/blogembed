@@ -9,26 +9,26 @@
       
     <p class="text-lg text-gray-800 mt-4">BlogEmbed is a privacy-first blog delivery service. Write them here and embed them privately with iframes on your website. Skip the CMS, keep the control.</p>
     <!--  Made for readbility-first, not meant to let you match your style on your website or mobile device. Reading style 1, reading style 2, etc... -->  
-    <div data-controller="connect" class="mt-8 h-24">
+    <div data-controller="signUp" class="mt-8 h-24">
   
-      <%= form_tag connections_connect_path(), 'data-target' => "connect.form", :method => :post, :id => "connect_form", :authenticity_token => true, :remote => true do %>
+      <%= form_tag user_sign_up_path(), 'data-target' => "signUp.form", :method => :post, :id => "signUp_form", :authenticity_token => true, :remote => true do %>
       
       	  <div class="sm:focus-within:shadow-outline rounded-lg">
                <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
-                 <input data-target="connect.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
-                 <%= submit_tag "try free", 'data-action' => 'click->connect#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "connect_submit_button" %>
+                 <input data-target="signUp.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
+                 <%= submit_tag "try free", 'data-action' => 'click->signUp#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "signUp_submit_button" %>
                </div>
           </div>
     	   
-    	  <span data-target="connect.error" class="hidden text-red-500 text-sm">
+    	  <span data-target="signUp.error" id="signUp_error" class="hidden text-red-500 text-sm">
     		  
     	  </span>		   
     	
       <% end %>
     
-      <span data-target="connect.thankyou" class="text-gray-700 py-10 text-xl">
-    
-      </span>	
+      <span data-target="signUp.thankyou" class="text-gray-700 py-10 text-xl" id="signUp_thankyou"></span>	
+      
+      <span class="text-green-500 hidden text-xl" id="server_check">	&#10003;</span>
       
     </div>  
       
