@@ -1,5 +1,9 @@
 class UsersController < ApplicationController
     
+    def profile_setup
+        #
+    end    
+    
     def confirm_account
     
         #error check if sign_up_code was provided

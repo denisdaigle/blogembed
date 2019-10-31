@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get '/login' => "users#login"
   
   root "pages#home" 
+  
 end
