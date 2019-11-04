@@ -13,13 +13,27 @@
   
       <%= form_tag user_sign_up_path(), 'data-target' => "signUp.form", :method => :post, :id => "signUp_form", :authenticity_token => true, :remote => true do %>
       
-      	  <div class="sm:focus-within:shadow-outline rounded-lg">
-               <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
-                 <input data-target="signUp.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
-                 <%= submit_tag "try free", 'data-action' => 'click->signUp#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "signUp_submit_button" %>
-               </div>
-          </div>
-    	   
+      	  <div class="flex">
+      	    
+      	    <div class="px-3">
+      	      
+      	      <div class="sm:focus-within:shadow-outline rounded-lg">
+                   <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
+                     <input data-target="signUp.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
+                     <%= submit_tag "try free", 'data-action' => 'click->signUp#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "signUp_submit_button" %>
+                   </div>
+              </div>
+      	      
+      	    </div>
+
+      	    <div class="px-3 mt-4">
+              <div class="">
+                <a href="/login">or Log in!</a>
+              </div>
+            </div>
+
+      	  </div>
+          
     	  <span data-target="signUp.error" id="signUp_error" class="hidden text-red-500 text-sm">
     		  
     	  </span>		   

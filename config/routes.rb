@@ -19,6 +19,8 @@ Rails.application.routes.draw do
   #password
   get '/forgot_password' => "passwords#request_reset_password_link"
   post '/process_password_reset_link_request' => 'passwords#process_password_reset_link_request'
+  get '/reset_password' => "passwords#create_new_password"
+  post '/process_new_password' => "passwords#process_new_password"
   
   root "pages#home"
   
