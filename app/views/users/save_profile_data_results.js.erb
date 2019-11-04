@@ -1,14 +1,13 @@
 <% if @result == "success" %>
           
-     //redirect to the dashboard.
-     window.location = "<%= Rails.configuration.access_point["webserver_domain"]%>/dashboard";
+  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/dashboard'  
 
 <% else %>
   
-      //show an error message.
-      document.getElementById('profileSetup_thankYouMessageHolder').classList.add("hidden");
-      document.getElementById('profileSetup_form').classList.remove("hidden");
-      document.getElementById('profileSetup_errorMessageHolder').classList.remove("hidden");
-      document.getElementById('profileSetup_errorMessage').textContent = '<%= @error_message %>';
+  //show an error message.
+  document.getElementById('profileSetup_thankYouMessageHolder').classList.add("hidden");
+  document.getElementById('profileSetup_form').classList.remove("hidden");
+  document.getElementById('profileSetup_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('profileSetup_errorMessage').textContent = '<%= @error_message %>';
 
 <% end %>

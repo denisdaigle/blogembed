@@ -47,6 +47,59 @@ class UsersController < ApplicationController
           format.js { render action: 'sign_up_results' }
         end
         
+    end 
+    
+    def profile_setup
+        
+        #error check if first_name, last_name and password was provided
+        if params[:first_name].present? && params[:last_name].present? && params[:password].present? && params[:uid].present?
+    	       
+            #build the query to send to the API server    
+            query = {:first_name => params[:first_name], :last_name => params[:last_name], :password => params[:password], :uid => params[:uid]}
+            
+            #Grab the variables for this connection from the secrets.yml file.
+            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            
+            #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_profile_setup service on the API.
+            save_profile_data = HTTParty.post(
+                Rails.configuration.access_point['api_domain'] + '/v1/save_profile_setup.json', 
+                :query => query,
+                :headers => headers
+            )
+            
+            @result = save_profile_data["result"]
+            @message = save_profile_data["message"] #Message comes from the API to help with future I18n multilingualism.
+            @payload = save_profile_data["payload"]
+            
+            #ITTT result.
+            if @result == "success"
+              
+                #render dashboard html
+                
+                #Create cookie that expires in 24hrs 
+                cookies[:db_session_token] = { value: @payload["db_session_token"], expires: 1.day }
+                
+            else
+            
+                if @message.present?
+                    @error_message = @message
+                else
+                    @error_message = "Sorry, there was an error saving your profile setup."
+                end  
+            
+            end
+          
+        else
+           
+            @error_message = "Looks like you\'re missing some form data. Please have a look."
+            
+        end
+    
+        #Resulting HTML file from setup save attempt.
+        respond_to do |format|
+            format.js { render action: 'save_profile_data_results' }
+        end
+        
     end    
     
     def confirm_account
@@ -93,73 +146,101 @@ class UsersController < ApplicationController
             
         end
     
-        #Resulting JS file and action post sign-up attempt.
+        #Resulting HTML file from setup save attempt.
         respond_to do |format|
-            format.html { render action: 'profile_setup' } #sent here by html link.
+            format.html { render action: 'profile_setup' }
         end
             
-    end  
-    
-    def profile_setup
-        
-        #error check if sign_up_code was provided
-        if params[:first_name].present? && params[:last_name].present? && params[:password].present? && params[:uid]
-    	       
-            #build the query to send to the API server    
-            query = {:first_name => params[:first_name], :last_name => params[:last_name], :password => params[:password], :uid => params[:uid]}
-            
-            #Grab the variables for this connection from the secrets.yml file.
-            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
-            
-            #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/sign_up service on the API.
-            save_profile_setup = HTTParty.post(
-                Rails.configuration.access_point['api_domain'] + '/v1/save_profile_setup.json', 
-                :query => query,
-                :headers => headers
-            )
-            
-            @result = save_profile_setup["result"]
-            @message = save_profile_setup["message"] #Message comes from the API to help with future I18n multilingualism.
-            @payload = save_profile_setup["payload"]
-            
-            #ITTT result.
-            if @result == "success"
-              
-                #Create session variable to log in the user.
-                @db_session_token = @payload["db_session_token"]
-                #Create the db_session_token. Upon log out, destroy this session variable.
-                session[:db_session_token] = @db_session_token
-            
-            else
-            
-                if @message.present?
-                    @error_message = @message
-                else
-                    @error_message = "Sorry, there was an error saving your setup data."
-                end  
-            
-            end
-          
-        else
-           
-            @error_message = "Looks like you're missing some form details. Please have a look."
-            
-        end
-    
-        #Resulting JS file and action setup data save attempt.
-        respond_to do |format|
-            format.js { render action: 'save_profile_data_results' }
-        end
-        
-    end 
+    end
     
     def login
        
-       #initial path to login page
+       #cookies[:db_session_token] = { value: 'hey you!', expires: 1.day }
+       
+        #initial path to login page
         respond_to do |format|
             format.html { render action: 'login' }
         end
         
     end    
     
+    def logout
+        
+        #build the query to send to the API server    
+        query = {:db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/nil_db_session_token service on the API.
+        nil_db_session_token = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/nil_db_session_token.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        #delete login cookie locally.
+        cookies.delete :db_session_token
+        
+        #send to login page
+        respond_to do |format|
+            format.js { render action: 'refresh_to_login' }
+        end
+        
+    end
+    
+    def process_login
+        
+        #error check if first_name, last_name and password was provided
+        if params[:email].present? && params[:password].present?
+    	       
+            #build the query to send to the API server    
+            query = {:email => params[:email], :password => params[:password]}
+            
+            #Grab the variables for this connection from the secrets.yml file.
+            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            
+            #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/process_login service on the API.
+            process_login_call = HTTParty.post(
+                Rails.configuration.access_point['api_domain'] + '/v1/process_login.json', 
+                :query => query,
+                :headers => headers
+            )
+            
+            @result = process_login_call["result"]
+            @message = process_login_call["message"] #Message comes from the API to help with future I18n multilingualism.
+            @payload = process_login_call["payload"]
+
+            #ITTT result.
+            if @result == "success"
+              
+                #render dashboard html
+                
+                #Create cookie that expires in 24hrs 
+                cookies[:db_session_token] = { value: @payload["db_session_token"], expires: 1.day }
+                
+            else
+            
+                if @message.present?
+                    @error_message = @message
+                else
+                    @error_message = "Sorry, there was an error processing your log in information."
+                end  
+            
+            end
+          
+        else
+           
+            @error_message = "Looks like you\'re missing some form data. Please have a look."
+            
+        end
+    
+        #Resulting HTML file from setup save attempt.
+        respond_to do |format|
+            format.js { render action: 'login_processing_results' }
+        end
+        
+    end    
+    
 end
+

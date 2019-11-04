@@ -1,0 +1,14 @@
+<% if @result == "success" %>
+          
+  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/dashboard'  
+
+<% else %>
+
+  //show an error message.
+  document.getElementById('loginForm_processingMessageHolder').classList.add("hidden");
+  document.getElementById('loginForm_form').classList.remove("hidden");
+  document.getElementById('loginForm_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('loginForm_errorMessage').textContent = '<%= @error_message %>';
+  document.getElementById('loginForm_errorMessage').classList.remove("hidden");
+  
+<% end %>
