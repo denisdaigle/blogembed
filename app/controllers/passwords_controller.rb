@@ -85,8 +85,7 @@ class PasswordsController < ApplicationController
             #Create cookie that expires in 24hrs 
             cookies[:db_session_token] = { value: @payload["db_session_token"], expires: 1.day }
             
-            #Create a boardcast message
-            @boardcast_message = @message
+            @broadcast_message = @message
 
         else
         
@@ -106,7 +105,6 @@ class PasswordsController < ApplicationController
 
     #Resulting js file from setup save attempt.
     respond_to do |format|
-      Rails.logger.debug ">>>>>> @boardcast_message #{@boardcast_message} <<<<<<<<<"
         format.js { render action: 'process_new_password_results'}
     end
     
