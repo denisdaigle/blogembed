@@ -55,7 +55,7 @@ class PasswordsController < ApplicationController
   
   def create_new_password
     #will render create_new_password.html.erb
-  end  
+  end 
   
   def process_new_password
     
