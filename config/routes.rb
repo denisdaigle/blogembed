@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   #blogs
   get '/create' => "blogs#create"
   post '/save_blog_and_post_content' => "blogs#save_blog_and_post_content"
+  get '/view_post' => "blogs#view_post"
   
   root "pages#home"
   

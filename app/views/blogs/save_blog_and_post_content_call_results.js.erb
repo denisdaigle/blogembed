@@ -1,0 +1,14 @@
+<% if @result == "success" %>
+          
+  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/dashboard?broadcast_message=<%= @message %>'  
+
+<% else %>
+
+  //show an error message.
+  document.getElementById('createBlogAndPostForm_processingMessageHolder').classList.add("hidden");
+  document.getElementById('createBlogAndPostForm_form').classList.remove("hidden");
+  document.getElementById('createBlogAndPostForm_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('createBlogAndPostForm_errorMessage').textContent = '<%= @error_message %>';
+  document.getElementById('createBlogAndPostForm_errorMessage').classList.remove("hidden");
+  
+<% end %>
