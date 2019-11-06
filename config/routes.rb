@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'blogs/list'
   get 'passwords/request_reset_password_link'
   get '/welcome' => "pages#welcome"
   
@@ -21,6 +22,10 @@ Rails.application.routes.draw do
   post '/process_password_reset_link_request' => 'passwords#process_password_reset_link_request'
   get '/reset_password' => "passwords#create_new_password"
   post '/process_new_password' => "passwords#process_new_password"
+  
+  #blogs
+  get '/create' => "blogs#create"
+  post '/save_blog_and_post_content' => "blogs#save_blog_and_post_content"
   
   root "pages#home"
   

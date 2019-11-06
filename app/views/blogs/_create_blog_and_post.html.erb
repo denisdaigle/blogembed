@@ -1,0 +1,63 @@
+<div data-controller="createBlogAndPostForm" class="mt-16 mx-auto w-full sm:w-full md:w-1/2 lg:w-1/2">
+  
+  <p class="text-gray-900 text-4xl mt-4 mb-4">Let's create a blog and a post</p>
+  
+  <%= form_tag save_blog_and_post_content_path(), 'data-target' => "createBlogAndPostForm.form", :method => :post, :id => "createBlogAndPostForm_form", :authenticity_token => true, :remote => true do %>
+
+        <div class="">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="blog_name">
+                Blog name
+            </label>
+            <input id="blog_name" name="blog_name" data-target="createBlogAndPostForm.blogNameInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="What's the name of your blog?">
+            <p class="text-red-500 text-xs italic hidden" data-target="createBlogAndPostForm.blogNameError"></p>
+        </div>
+        
+        <div class="mt-6">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="post_title">
+                Post title
+            </label>
+            <input id="post_title" name="post_title" data-target="createBlogAndPostForm.postTitleInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="What's the post title?">
+            <p class="text-red-500 text-xs italic hidden" data-target="createBlogAndPostForm.postTitleError"></p>
+        </div>
+        
+        <div class="mt-6">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="password">
+                Content
+            </label>
+            <textarea id="post_content" name="post_content" data-target="createBlogAndPostForm.postContentInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" rows="3" placeholder="Tell us about it!"></textarea>
+            <p class="text-red-500 text-xs italic hidden" data-target="createBlogAndPostForm.postContentError"></p>
+        </div>
+        
+        <div class="mt-6">
+            <div class="">
+                <%= submit_tag "Create", 'data-action' => 'click->createBlogAndPostForm#create', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "createBlogAndPostForm_create_button" %>
+            </div>
+        </div>
+
+  <% end %>
+  
+  <div class="flex hidden py-10 hidden" data-target="createBlogAndPostForm.errorMessageHolder" id="createBlogAndPostForm_errorMessageHolder">
+    
+    <div class="">
+      <span data-target="createBlogAndPostForm.errorMessage" id="createBlogAndPostForm_errorMessage" class="text-red-500 text-md">
+
+      </span>
+    </div>
+    
+  </div>
+  
+  <div class="flex hidden py-10" data-target="createBlogAndPostForm.processingMessageHolder" id="createBlogAndPostForm_processingMessageHolder">
+    
+    <div class="">
+      <span data-target="createBlogAndPostForm.processingMessage" id="createBlogAndPostForm_processingMessage" class="text-gray-700 text-md">
+
+      </span>
+    </div>
+    
+    <div class="mt-4 ml-1">
+      <img src="<%= image_path('dots.svg') %>"/>
+    </div>
+    
+  </div>
+  
+</div>

@@ -1,0 +1,15 @@
+<div class="mx-auto mt-16 py-8 px-8 w-full sm:w-full md:w-1/2 lg:w-1/2">
+    
+    <% if @blogs.present? %>
+    
+        <%= @blogs.each do |blog| %>
+            <p class="mt-2"><%= blog.title %></p>
+        <% end %>
+        
+    <% else %>
+        
+        <p class="mt-2 text-center">...here is where it all starts. <a href="/create?what=blog_and_post" class="underline" data-remote="true">Create your first blog and post!</a></p>
+
+    <% end %>
+    
+</div>
