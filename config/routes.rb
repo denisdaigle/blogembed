@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   get 'passwords/request_reset_password_link'
   get '/welcome' => "pages#welcome"
   
-  #dashboard
-  get '/dashboard' => "dashboards#dashboard"
-  
   #USERS
   post '/user_sign_up' => "users#sign_up"
   get '/confirm_account' => "users#confirm_account"
@@ -24,10 +21,13 @@ Rails.application.routes.draw do
   post '/process_new_password' => "passwords#process_new_password"
   
   #blogs
+  get '/blogs' => "blogs#blogs"
   get '/create' => "blogs#create"
   post '/save_blog_and_post_content' => "blogs#save_blog_and_post_content"
-  get '/view_post' => "blogs#view_post"
-  
+  get '/post' => "blogs#view_post"
+  get '/edit_post' => "blogs#edit_post"
+  post '/save_post_content' => "blogs#save_post_content"
+
   root "pages#home"
   
 end

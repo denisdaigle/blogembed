@@ -1,0 +1,15 @@
+<% if @result == "success" %>
+          
+ //replace main_working_area with create form.
+ document.getElementById('main_working_area').innerHTML = "<%= j render 'post' %>";
+
+<% else %>
+
+  //show an error message.
+  document.getElementById('editPostForm_processingMessageHolder').classList.add("hidden");
+  document.getElementById('editPostForm_form').classList.remove("hidden");
+  document.getElementById('editPostForm_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('editPostForm_errorMessage').textContent = '<%= @error_message %>';
+  document.getElementById('editPostForm_errorMessage').classList.remove("hidden");
+  
+<% end %>

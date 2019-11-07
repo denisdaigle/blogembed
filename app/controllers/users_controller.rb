@@ -74,7 +74,7 @@ class UsersController < ApplicationController
             #ITTT result.
             if @result == "success"
               
-                #render dashboard html
+                #render blogs html
                 
                 #Create cookie that expires in 24hrs 
                 cookies[:db_session_token] = { value: @payload["db_session_token"], expires: 1.day }
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
     end    
     
     def confirm_account
-    
+        
         #error check if sign_up_code was provided
         if params[:sign_up_code].present?
     	       
@@ -155,12 +155,15 @@ class UsersController < ApplicationController
     
     def login
        
-       #cookies[:db_session_token] = { value: 'hey you!', expires: 1.day }
-       
-        #initial path to login page
-        respond_to do |format|
-            format.html { render action: 'login' }
-        end
+       if cookies[:db_session_token].present?
+           #redirect to blogs if already logged in.
+           redirect_to "/blogs"
+       else
+            #initial path to login page
+            respond_to do |format|
+                format.html { render action: 'login' }
+            end 
+       end       
         
     end    
     
@@ -214,7 +217,7 @@ class UsersController < ApplicationController
             #ITTT result.
             if @result == "success"
               
-                #render dashboard html
+                #render blogs html
                 
                 #Create cookie that expires in 24hrs 
                 cookies[:db_session_token] = { value: @payload["db_session_token"], expires: 1.day }

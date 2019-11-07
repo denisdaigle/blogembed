@@ -1,0 +1,11 @@
+<% if @result == "success" %>
+          
+ //replace main_working_area with create form.
+ document.getElementById('main_working_area').innerHTML = "<%= j render 'post' %>";
+
+<% else %>
+
+ //replace main_working_area with create form.
+ document.getElementById('main_working_area').innerHTML = "<%= j render 'post_not_found' %>";
+  
+<% end %>
