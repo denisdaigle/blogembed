@@ -1,6 +1,7 @@
 <% if @result == "success" %>
           
-  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/dashboard?broadcast_message=<%= @message %>'  
+ //replace main_working_area with create form.
+ document.getElementById('main_working_area').innerHTML = "<%= j render 'post' %>";
 
 <% else %>
 

@@ -44,8 +44,7 @@ class BlogsController < ApplicationController
         #ITTT result.
         if @result == "success"
           
-            @blog_uid = @payload[:blog_uid]
-            @post_uid = @payload[:post_uid]
+            @post = @payload["post"]
             
         else
         
