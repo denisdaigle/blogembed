@@ -1,7 +1,7 @@
 <% if @result == "success" %>
           
- //replace main_working_area with create form.
- document.getElementById('main_working_area').innerHTML = "<%= j render 'post' %>";
+  //replace main_working_area with create form.
+  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/post?uid=<%= @post["post_uid"]%>' 
 
 <% else %>
 

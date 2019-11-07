@@ -154,7 +154,7 @@ class BlogsController < ApplicationController
 
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
-        format.js { render action: 'save_blog_and_post_content_call_results' }
+        format.html { render action: 'post' }
     end
     
   end  
@@ -203,11 +203,11 @@ class BlogsController < ApplicationController
         
         @error_message = "Sorry, without a post uid, we cannot find your post."
         
-    end    
+    end
     
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
-        format.js { render action: 'fetch_post_from_database_results' }
+        format.html { render action: 'post' }
     end
       
   end      
@@ -260,7 +260,7 @@ class BlogsController < ApplicationController
     
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
-        format.js { render action: 'load_post_editor' }
+        format.html { render action: 'post_editor' }
     end
       
   end      
