@@ -1,0 +1,15 @@
+<% if @result == "success" %>
+          
+  //replace main_working_area with create form.
+  document.getElementById('blog_<%= @blog_details["blog_uid"] %>_details_editor').innerHTML = "<%= j render 'blog_details', :blog_details => @blog_details %>";
+
+<% else %>
+
+  //show an error message.
+  document.getElementById('editBlogDetailsForm_processingMessageHolder').classList.add("hidden");
+  document.getElementById('editBlogDetailsForm_form').classList.remove("hidden");
+  document.getElementById('editBlogDetailsForm_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('editBlogDetailsForm_errorMessage').textContent = '<%= @error_message %>';
+  document.getElementById('editBlogDetailsForm_errorMessage').classList.remove("hidden");
+  
+<% end %>

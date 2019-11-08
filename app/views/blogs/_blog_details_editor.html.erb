@@ -1,0 +1,44 @@
+<div data-controller="editBlogDetailsForm" class="w-full mt-4">
+  
+    <%= form_tag save_blog_details_changes_path(), 'data-target' => "editBlogDetailsForm.form", :method => :post, :id => "editBlogDetailsForm_form", :authenticity_token => true, :remote => true do %>
+        <%= hidden_field_tag :blog_uid, @blog_details["blog_uid"] %>
+        <div class="w-full flex">
+            <div class="mr-4">
+                <input id="blog_name" name="blog_name" value="<%= @blog_details["blog_name"] %>" data-target="editBlogDetailsForm.blogNameInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="What's the name of your blog?">
+            </div>
+            <div class="mt-1 mr-4">
+                <%= submit_tag "save", 'data-action' => 'click->editBlogDetailsForm#create', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "createBlogAndPostForm_create_button" %>
+            </div>
+            <div class="mt-3">
+                <a href="/blogs" class="hover:font-bold">cancel</a>
+            </div>
+        </div>
+        <p class="text-red-500 text-xs italic hidden" data-target="editBlogDetailsForm.blogNameError"></p>
+    <% end %>
+  
+  
+    <div class="w-full flex hidden" data-target="editBlogDetailsForm.errorMessageHolder" id="editBlogDetailsForm_errorMessageHolder">
+      
+      <div class="">
+        <span data-target="editBlogDetailsForm.errorMessage" id="editBlogDetailsForm_errorMessage" class="text-red-500 text-xs italic hidden">
+  
+        </span>
+      </div>
+      
+    </div>
+    
+    <div class="w-full justify-center flex hidden" data-target="editBlogDetailsForm.processingMessageHolder" id="editBlogDetailsForm_processingMessageHolder">
+      
+      <div class="">
+        <span data-target="editBlogDetailsForm.processingMessage" id="editBlogDetailsForm_processingMessage" class="text-red-500 text-xs italic hidden">
+  
+        </span>
+      </div>
+      
+      <div class="mt-3 ml-1">
+        <img src="<%= image_path('dots.svg') %>"/>
+      </div>
+      
+    </div>
+    
+</div>

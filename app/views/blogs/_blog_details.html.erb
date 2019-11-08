@@ -1,0 +1,14 @@
+<div class="w-full flex justify-between">
+    <p class="mt-2 text-3xl font-display font-semibold leading-tight lg:leading-tight"><%= blog_details["blog_name"] %></p>
+    <div class="flex">
+      <div>
+          <a href="/add_a_post_to_blog?uid=<%= blog_details["blog_uid"] %>" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">post</span></a>
+      </div>
+      <div>
+          <a href="/edit_blog?uid=<%= blog_details["blog_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">edit</span></a>
+      </div>
+      <div>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20blog%20and%20all%20posts&#63;&a=delete_blog&#63;uid=<%= blog_details["blog_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
+      </div>
+    </div>
+</div>

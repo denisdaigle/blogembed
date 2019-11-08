@@ -94,25 +94,18 @@ class BlogsController < ApplicationController
     
   end
   
-  def create
-    #render html needed to create a blog and/or post
+  def create_blog_and_post
     
-    if params[:what].present? && params[:what] == "blog_and_post"
-      
-      respond_to do |format|
-          format.html { render action: 'blog_and_post_creator' }
-      end
-      
-    else
-      
-    end  
+    respond_to do |format|
+        format.html { render action: 'blog_and_post_creator' }
+    end
     
   end  
   
   def save_blog_and_post_content
     
     #error check if blog_name, post_title and post_content was provided
-    if params[:blog_name].present? && params[:post_title].present? && params[:post_content].present?
+    if params[:blog_name].present? && params[:post_title].present? && params[:post_content].present? && cookies[:db_session_token].present?
 	       
         #build the query to send to the API server    
         query = {:blog_name => params[:blog_name], :post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token]}
@@ -267,6 +260,8 @@ class BlogsController < ApplicationController
   
   def delete_post
     
+    #fetch post from database.
+
     if params[:uid].present?
        
        #build the query to send to the API server    
@@ -364,18 +359,10 @@ class BlogsController < ApplicationController
         format.js { render action: 'save_post_content_call_results' }
     end
       
-  end      
-  
-  def add_a_post_to_blog
-      
-  end 
-  
-  def edit_blog
-      
-  end      
+  end    
   
   def delete_blog
-      
+
     if params[:uid].present?
        
        #build the query to send to the API server    
@@ -385,15 +372,15 @@ class BlogsController < ApplicationController
         headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/delete_blog service on the API.
-        delete_blog_call = HTTParty.get(
+        delete_post_call = HTTParty.get(
             Rails.configuration.access_point['api_domain'] + '/v1/delete_blog.json', 
             :query => query,
             :headers => headers
         )
         
-        @result = delete_blog_call["result"]
-        @message = delete_blog_call["message"] #Message comes from the API to help with future I18n multilingualism.
-        @payload = delete_blog_call["payload"]
+        @result = delete_post_call["result"]
+        @message = delete_post_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = delete_post_call["payload"]
     
         #ITTT result.
         if @result == "success"
@@ -421,6 +408,178 @@ class BlogsController < ApplicationController
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
         format.js { render action: 'delete_blog_results' }
+    end
+      
+  end
+  
+  def add_a_post_to_blog
+      
+      if params[:uid].present?
+          
+        @blog_uid = params[:uid]
+        
+      else
+          
+        @error_message = "Sorry, we can't create a post for this blog. The Blog UID is missing."  
+      
+      end  
+      
+      respond_to do |format|
+        format.html { render action: 'post_creator' }
+      end
+      
+  end    
+  
+  def create_post
+      
+    #error check if blog_name, post_title and post_content was provided
+    if params[:post_title].present? && params[:post_content].present? && params[:blog_uid].present? && cookies[:db_session_token].present?
+	       
+        #build the query to send to the API server    
+        query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :blog_uid => params[:blog_uid]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/create_post service on the API.
+        create_post_coll = HTTParty.post(
+            Rails.configuration.access_point['api_domain'] + '/v1/create_post.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = create_post_coll["result"]
+        @message = create_post_coll["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = create_post_coll["payload"]
+
+        #ITTT result.
+        if @result == "success"
+          
+            @post = @payload["post"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error creating this post."
+            end  
+        
+        end
+      
+    else
+       
+        @error_message = "Looks like you are missing some form data. Please have a look."
+        
+    end
+
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'create_post_results' }
+    end
+      
+  end
+  
+  def edit_blog
+     
+    #fetch blog from database.
+
+    if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_blog_details_from_database service on the API.
+        fetch_blog_details_from_database = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/fetch_blog_details_from_database.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = fetch_blog_details_from_database["result"]
+        @message = fetch_blog_details_from_database["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = fetch_blog_details_from_database["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+          
+            @blog_details = @payload["blog_details"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error fetching your blog details to edit."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a blog uid, we cannot find your blog."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'load_inline_blog_editor' }
+    end
+      
+  end     
+  
+  def save_blog_details_changes
+
+    if params[:blog_uid].present? && params[:blog_name].present?
+       
+       #build the query to send to the API server    
+        query = {:blog_name => params[:blog_name], :blog_uid => params[:blog_uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_details_changes service on the API.
+        save_blog_details_changes_call = HTTParty.post(
+            Rails.configuration.access_point['api_domain'] + '/v1/save_blog_details_changes.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = save_blog_details_changes_call["result"]
+        @message = save_blog_details_changes_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = save_blog_details_changes_call["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+          
+            @blog_details = @payload["blog_details"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error fetching your blog details to edit."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a blog uid, we cannot find your blog."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'save_blog_details_changes_results' }
     end
       
   end      

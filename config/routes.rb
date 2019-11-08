@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   
   #blogs
   get '/blogs' => "blogs#blogs"
-  get '/create' => "blogs#create"
+  get '/create_blog_and_post' => "blogs#create_blog_and_post"
   post '/save_blog_and_post_content' => "blogs#save_blog_and_post_content"
   get '/post' => "blogs#view_post"
   get '/edit_post' => "blogs#edit_post"
@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   get '/edit_blog' => "blogs#edit_blog"
   get '/delete_blog' => "blogs#delete_blog"
   get '/add_a_post_to_blog' => "blogs#add_a_post_to_blog"
-  
+  post '/create_post' => "blogs#create_post"
+  post '/save_blog_details_changes' => "blogs#save_blog_details_changes"
   get '/ask' => "application#ask"
   get '/inform' => "application#inform"
 

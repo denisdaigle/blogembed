@@ -1,0 +1,15 @@
+<% if @result == "success" %>
+          
+  //replace main_working_area with create form.
+  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/post?uid=<%= @post["post_uid"]%>' 
+
+<% else %>
+
+  //show an error message.
+  document.getElementById('createPostForm_processingMessageHolder').classList.add("hidden");
+  document.getElementById('createPostForm_form').classList.remove("hidden");
+  document.getElementById('createPostForm_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('createPostForm_errorMessage').textContent = '<%= @error_message %>';
+  document.getElementById('createPostForm_errorMessage').classList.remove("hidden");
+  
+<% end %>
