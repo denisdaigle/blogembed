@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     
     def ask
        
-        @question = "are you sure"
+        @question = params[:q]
       
         #Resulting HTML file from setup save attempt.
         respond_to do |format|

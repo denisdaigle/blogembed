@@ -29,9 +29,7 @@ export default class extends Controller {
 	
 	close(event) {
 		
-		//hide the broadcast message
-		this.popupTarget.classList.add("hidden")
-		this.messageTarget.textContent = ''
+		document.getElementById('popup_holder').innerHTML = ""
 
 	}
 

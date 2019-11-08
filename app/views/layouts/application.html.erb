@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload', async: true %>
   </head>
 
-  <body>
+  <body data-controller="main">
     
     <% if params[:controller] == "blogs" %>
     
@@ -46,6 +46,11 @@
     <div id="popup_holder">
       
 
+    </div>
+    
+    
+    <div class="pointer-events-none">
+      
     </div>
     
     <%= yield %>
