@@ -13,7 +13,7 @@ export default class extends Controller {
 	    
 	    if(element.style.opacity == 1) {
 	    	element.style.opacity -= 0.1;
-	        setTimeout(() => this.fadeOut(), 1000) // 1 second full view time.
+	        setTimeout(() => this.fadeOut(), 3000) // 3 second full view time.
 	    } else if (element.style.opacity > 0.1){
 	    	element.style.opacity -= 0.1;
 	    	setTimeout(() => this.fadeOut(), 50) // increase to make slower fade.

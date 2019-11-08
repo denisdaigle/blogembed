@@ -100,7 +100,7 @@ class BlogsController < ApplicationController
     if params[:what].present? && params[:what] == "blog_and_post"
       
       respond_to do |format|
-          format.js { render action: 'load_create_blog_and_post_editor' }
+          format.html { render action: 'blog_and_post_creator' }
       end
       
     else
@@ -112,7 +112,7 @@ class BlogsController < ApplicationController
   def save_blog_and_post_content
     
     #error check if blog_name, post_title and post_content was provided
-    if params[:blog_name].present? && params[:post_title].present? && params[:post_content].present? && cookies[:db_session_token].present?
+    if params[:blog_name].present? && params[:post_title].present? && params[:post_content].present?
 	       
         #build the query to send to the API server    
         query = {:blog_name => params[:blog_name], :post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token]}
@@ -154,7 +154,7 @@ class BlogsController < ApplicationController
 
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
-        format.html { render action: 'post' }
+        format.js { render action: 'save_blog_and_post_content_call_results' }
     end
     
   end  
@@ -267,8 +267,6 @@ class BlogsController < ApplicationController
   
   def delete_post
     
-    #fetch post from database.
-
     if params[:uid].present?
        
        #build the query to send to the API server    
@@ -364,6 +362,65 @@ class BlogsController < ApplicationController
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
         format.js { render action: 'save_post_content_call_results' }
+    end
+      
+  end      
+  
+  def add_a_post_to_blog
+      
+  end 
+  
+  def edit_blog
+      
+  end      
+  
+  def delete_blog
+      
+    if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/delete_blog service on the API.
+        delete_blog_call = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/delete_blog.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = delete_blog_call["result"]
+        @message = delete_blog_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = delete_blog_call["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+          
+            @broadcast_message = @message
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error deleting this blog."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a post uid, we cannot find this blog to delete."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'delete_blog_results' }
     end
       
   end      

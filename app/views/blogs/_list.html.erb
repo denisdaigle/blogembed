@@ -7,7 +7,7 @@
             <div class="w-full flex justify-between">
                 <p class="mt-2 text-3xl font-display font-semibold leading-tight lg:leading-tight"><%= blog[0]["blog_name"] %></p>
                 <div class="flex">
-                  <a href="/add_a_post?uid=<%= blog[0]["blog_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">add a post</span></a>
+                  <a href="/add_a_post_to_blog?uid=<%= blog[0]["blog_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">add a post</span></a>
                   <a href="/edit_blog?uid=<%= blog[0]["blog_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">edit</span></a>
                   <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20blog%20and%20all%20posts&#63;&a=delete_blog&#63;uid=<%= blog[0]["blog_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
                 </div>
@@ -15,18 +15,20 @@
             
             <% blog[1].each do |blog_post| %>
                 
-                <a href="/post?uid=<%= blog_post["post_uid"] %>">
-                    <div class="max-w-sm w-full lg:max-w-full lg:flex hover:shadow-md">
-                      <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-r-none border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('<%= image_path("post_type_1.jpg") %>')" title="post_type_1">
-                      </div>
-                      <div class="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                        <div class="mb-8">
-                          <div class="text-gray-900 font-bold text-xl mb-2"><%= blog_post["post_title"] %></div>
-                          <p class="text-gray-700 text-base"><%= blog_post["post_content_preview"] %></p>
-                        </div>
-                      </div>
-                    </div>                
-                </a>
+                <div class="mt-4">
+                    <a href="/post?uid=<%= blog_post["post_uid"] %>">
+                        <div class="max-w-sm w-full lg:max-w-full lg:flex hover:shadow-md">
+                          <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-r-none border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('<%= image_path("post_type_1.jpg") %>')" title="post_type_1">
+                          </div>
+                          <div class="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                            <div class="mb-8">
+                              <div class="text-gray-900 font-bold text-xl mb-2"><%= blog_post["post_title"] %></div>
+                              <p class="text-gray-700 text-base"><%= blog_post["post_content_preview"] %></p>
+                            </div>
+                          </div>
+                        </div>                
+                    </a>
+                </div>
                 
             <% end %>
             
@@ -34,7 +36,12 @@
         
     <% else %>
         
-        <p class="mt-2 text-center">...here is where it all starts. <a href="/create?what=blog_and_post" class="underline" data-remote="true">Create your first blog and post!</a></p>
+        <div class="mt-16">
+            <p class="mt-2 text-center">...here is where it all starts. <br/>Create your first blog and post!</p>
+        </div>
+        <div class="mt-10 text-center">
+            <a href="/create?what=blog_and_post" class="inline-block text-md px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4">Let's do it</a>
+        </div>
 
     <% end %>
     

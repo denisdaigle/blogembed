@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post '/save_post_content' => "blogs#save_post_content"
   get '/edit_blog' => "blogs#edit_blog"
   get '/delete_blog' => "blogs#delete_blog"
+  get '/add_a_post_to_blog' => "blogs#add_a_post_to_blog"
   
   get '/ask' => "application#ask"
   get '/inform' => "application#inform"
