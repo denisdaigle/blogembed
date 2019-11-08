@@ -8,7 +8,7 @@
     <h2 class="text-2xl font-display font-semibold leading-tight mt-2 lg:leading-tight"><%= @post["post_title"] %></h2>
     <div class="flex">
       <a href="/edit_post?uid=<%= @post["post_uid"] %>" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">edit</span></a>
-      <a href="/delete_post?uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
+      <a href="/ask?q=delete_post&uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
     </div>
   </div>
   

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get '/post' => "blogs#view_post"
   get '/edit_post' => "blogs#edit_post"
   post '/save_post_content' => "blogs#save_post_content"
+  
+  get '/ask' => "application#ask"
 
   root "pages#home"
   

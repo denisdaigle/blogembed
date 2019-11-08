@@ -9,4 +9,15 @@ class ApplicationController < ActionController::Base
     #   end       
     # end    
     
+    def ask
+       
+        @question = "are you sure"
+      
+        #Resulting HTML file from setup save attempt.
+        respond_to do |format|
+            format.js { render action: 'yes_no_popup' }
+        end
+        
+    end    
+    
 end

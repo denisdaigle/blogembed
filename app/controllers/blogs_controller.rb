@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
   before_action :check_db_session_token
   
   def check_db_session_token
-    
+  
     #error check if email was provided.
     if cookies[:db_session_token].present?
 	       
@@ -262,6 +262,12 @@ class BlogsController < ApplicationController
     respond_to do |format|
         format.html { render action: 'post_editor' }
     end
+      
+  end
+  
+  def delete_post
+    
+    
       
   end      
   
