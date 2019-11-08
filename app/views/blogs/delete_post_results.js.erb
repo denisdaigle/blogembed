@@ -1,0 +1,12 @@
+<% if @result == "success" %>
+          
+  //replace main_working_area with create form.
+  window.location = '<%= Rails.configuration.access_point["webserver_domain"]%>/blogs?broadcast_message=<%= @broadcast_message %>' 
+
+<% else %>
+
+  //show an error message as an info popup.
+  <% @info = @error_message %>
+  document.getElementById('popup_holder').innerHTML = "<%= j render 'info_popup' %>";
+  
+<% end %>

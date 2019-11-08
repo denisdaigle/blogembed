@@ -267,7 +267,54 @@ class BlogsController < ApplicationController
   
   def delete_post
     
+    #fetch post from database.
+
+    if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/delete_post service on the API.
+        delete_post_call = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/delete_post.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = delete_post_call["result"]
+        @message = delete_post_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = delete_post_call["payload"]
     
+        #ITTT result.
+        if @result == "success"
+          
+            @broadcast_message = @message
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error deleting this post."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a post uid, we cannot find this post to delete."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'delete_post_results' }
+    end
       
   end      
   

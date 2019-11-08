@@ -26,9 +26,13 @@ Rails.application.routes.draw do
   post '/save_blog_and_post_content' => "blogs#save_blog_and_post_content"
   get '/post' => "blogs#view_post"
   get '/edit_post' => "blogs#edit_post"
+  get '/delete_post' => "blogs#delete_post"
   post '/save_post_content' => "blogs#save_post_content"
+  get '/edit_blog' => "blogs#edit_blog"
+  get '/delete_blog' => "blogs#delete_blog"
   
   get '/ask' => "application#ask"
+  get '/inform' => "application#inform"
 
   root "pages#home"
   
