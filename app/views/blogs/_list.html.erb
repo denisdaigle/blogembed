@@ -1,10 +1,10 @@
-<div class="mx-auto mt-2 py-8 px-8 w-full sm:w-full md:w-1/2 lg:w-1/2">
-    
-    <div class="text-right">
-        <a href="/create_blog_and_post" class="inline-block text-md px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 hover:text-gray-900 mt-4 lg:mt-4"><span class="uppercase tracking-widest text-sm">add blog</span></a>
-    </div>
-    
+<div class="mx-auto mt-2 py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3">
+
     <% if @blogs.present? %>
+    
+        <div class="text-right">
+            <a href="/create_blog_and_post" class="inline-block text-md px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 hover:text-gray-900 mt-4 lg:mt-4"><span class="uppercase tracking-widest text-sm">add blog</span></a>
+        </div>
     
         <% @blogs.each do |blog| %>
             
@@ -21,11 +21,35 @@
                             <div class="max-w-sm w-full lg:max-w-full lg:flex hover:shadow-md">
                               <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover border-r-none border-b border-l border-gray-400 lg:border-l lg:border-t lg:border-gray-400 rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" style="background-image: url('<%= image_path("post_type_1.jpg") %>')" title="post_type_1">
                               </div>
-                              <div class="w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+                              <div class="overflow-hidden w-full border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                                 <div class="mb-8">
                                   <div class="text-gray-900 font-bold text-xl mb-2"><%= blog_post["post_title"] %></div>
                                   <p class="text-gray-700 text-base"><%= blog_post["post_content_preview"] %></p>
                                 </div>
+                                
+                                <% if blog_post["post_status"] == "live" %>
+                                
+                                    <div class="relative">
+                            			<div class="absolute right-0 bg-blue-500 w-40 h-40 z-50" style="transform: rotate(-45deg);margin-top:-40px;margin-right:-120px;">
+                            				<div class="px-1 py-1 text-center">
+                            					<span class="text-white"><%= blog_post["post_status"] %></span>
+                            				</div>
+                            			</div>
+                            		</div>
+                                
+                                <% else %>
+                                    
+                                    <div class="relative">
+                            			<div class="absolute right-0 bg-gray-500 w-40 h-40 z-50" style="transform: rotate(-45deg);margin-top:-40px;margin-right:-120px;">
+                            				<div class="px-1 py-1 text-center">
+                            					<span class="text-white"><%= blog_post["post_status"] %></span>
+                            				</div>
+                            			</div>
+                            		</div>
+                                    
+                                <% end %>
+                                
+		
                               </div>
                             </div>                
                         </a>

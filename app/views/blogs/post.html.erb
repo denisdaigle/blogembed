@@ -8,13 +8,18 @@
     
     <div class="w-full flex justify-between">
       <h2 class="text-2xl font-display font-semibold leading-tight mt-2 lg:leading-tight"><%= @post["post_title"] %></h2>
-      <div class="flex">
-        <a href="/edit_post?uid=<%= @post["post_uid"] %>" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">edit</span></a>
-        <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20post&#63;&a=delete_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 border-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
+      <div class="flex -mt-2">
+        <% if @post["post_status"] == "draft" %>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20PUBLISH%20this%20post&#63;&a=publish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">publish</span></a>
+        <% else %>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20UNPUBLISH%20this%20post&#63;&a=unpublish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">unpublish</span></a>
+        <% end %>
+        <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20post&#63;&a=delete_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
+        <a href="/edit_post?uid=<%= @post["post_uid"] %>" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">edit</span></a>
       </div>
     </div>
     
-    <div class="w-full">
+    <div class="w-full mt-2">
       <p class="sm:text-lg lg:leading-normal text-left font-normal lg:font-thin">
         <%= @post["post_content"] %>
       </p>

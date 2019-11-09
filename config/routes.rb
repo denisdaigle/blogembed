@@ -33,6 +33,11 @@ Rails.application.routes.draw do
   get '/add_a_post_to_blog' => "blogs#add_a_post_to_blog"
   post '/create_post' => "blogs#create_post"
   post '/save_blog_details_changes' => "blogs#save_blog_details_changes"
+  
+  get '/publish_post' => "blogs#publish_post"
+  get '/unpublish_post' => "blogs#unpublish_post"
+  
+  #utilities
   get '/ask' => "application#ask"
   get '/inform' => "application#inform"
 

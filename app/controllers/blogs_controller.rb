@@ -584,4 +584,106 @@ class BlogsController < ApplicationController
       
   end      
   
+  def publish_post
+    
+    if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/publish_post service on the API.
+        publish_post_call = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/publish_post.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = publish_post_call["result"]
+        @message = publish_post_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = publish_post_call["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+          
+            @post = @payload["post"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error publishing this post."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a post uid, we cannot find this post to publish."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'publish_results' }
+    end
+      
+  end  
+  
+  def unpublish_post
+    
+    if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/unpublish_post service on the API.
+        unpublish_post_call = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/unpublish_post.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = unpublish_post_call["result"]
+        @message = unpublish_post_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = unpublish_post_call["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+          
+            @post = @payload["post"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error unpublishing this post."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a post uid, we cannot find this post to unpublish."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'unpublish_results' }
+    end
+      
+  end  
+  
 end
