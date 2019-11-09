@@ -8,19 +8,37 @@
     
     <div class="w-full flex justify-between">
       <h2 class="text-2xl font-display font-semibold leading-tight mt-2 lg:leading-tight"><%= @post["post_title"] %></h2>
-      <div class="flex -mt-2">
+    </div>
+    
+    <div class="leading-none md:hidden mb-4">
+       <% if @post["post_last_published"].present? %>
+         <span class="uppercase tracking-widest text-xs text-blue-500">published: <%= @post["post_last_published"] %></span>
+         <br/> 
+       <% end %>
+       <span class="uppercase tracking-widest text-xs text-gray-700">updated: <%= @post["post_last_updated"] %></span>
+    </div>
+    
+    <div class="w-full flex justify-between">
+      <div class="leading-none hidden md:block">
+         <% if @post["post_last_published"].present? %>
+           <span class="uppercase tracking-widest text-xs text-blue-500">published: <%= @post["post_last_published"] %></span>
+           <br/> 
+         <% end %>
+         <span class="uppercase tracking-widest text-xs text-gray-700">updated: <%= @post["post_last_updated"] %></span>
+      </div>
+      <div>
         <% if @post["post_status"] == "draft" %>
-          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20PUBLISH%20this%20post&#63;&a=publish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">publish</span></a>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20PUBLISH%20this%20post&#63;&a=publish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">publish</span></a>
         <% else %>
-          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20UNPUBLISH%20this%20post&#63;&a=unpublish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">unpublish</span></a>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20UNPUBLISH%20this%20post&#63;&a=unpublish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">unpublish</span></a>
         <% end %>
-        <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20post&#63;&a=delete_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">delete</span></a>
-        <a href="/edit_post?uid=<%= @post["post_uid"] %>" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-sm">edit</span></a>
+        <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20post&#63;&a=delete_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">delete</span></a>
+        <a href="/edit_post?uid=<%= @post["post_uid"] %>" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4"><span class="uppercase tracking-widest text-xs">edit</span></a>
       </div>
     </div>
     
     <div class="mt-4 mb-3">
-      <textarea readonly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"><iframe href="https://www.blogembed.com/"></iframe></textarea>
+      <textarea readonly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"><iframe href="<%= Rails.configuration.access_point["webserver_domain"]%>/"></iframe></textarea>
     </div>
     
     <div class="w-full mt-2">

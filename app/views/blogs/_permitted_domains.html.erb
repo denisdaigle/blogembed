@@ -1,0 +1,23 @@
+<table class="mt-4 table-auto">
+  <tr>
+    <td>
+      <div>
+        <span class="uppercase tracking-widest text-xs text-gray-700">domains:</span>
+      </div>
+    </td>
+    <% if blog_permitted_domains %>
+      <% blog_permitted_domains.each do |domain| %>
+        <td>
+          domain["url"]
+        </td>
+      <% end %>
+    <% else %>
+      <td>
+        
+      </td>
+    <% end %>
+    <td>
+      <a href="/add_permitted_domain?uid=<%= blog_uid %>" data-remote="true" class="h-8 text-xs px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">add</span></a>
+    </td>
+  </tr>
+</table>
