@@ -1,0 +1,12 @@
+<% if @post.present? %>
+    
+    <%= @post %>
+
+<% else %>
+
+  <div class="border-dashed border-4 border-red-600 px-4 py-4">
+      <div class=""><span class="text-2xl text-gray-800 font-bold">Hey There!</span></div>
+      <div class="mt-2"><span class="text-xl text-gray-800"><%= @error_message %> <a class="" href="<%= Rails.configuration.access_point["webserver_domain"]%>" target="_new"><span class="underline text-blue-500">blogembed.com</span></a></span></div>
+  </div>
+
+<% end %>

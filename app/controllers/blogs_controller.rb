@@ -1,6 +1,60 @@
 class BlogsController < ApplicationController
 
-  before_action :check_db_session_token
+  before_action :check_db_session_token, :except => :embed
+  
+  def embed
+
+    if params[:uid].present?
+        
+        #Let's capture the requesting url.
+        @requesting_url = request.referrer.gsub("https://", "").gsub("http://", "").gsub("/", "")
+        
+        #build the query to send to the API server    
+        query = {:post_uid => params[:uid], :requesting_url => @requesting_url}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_post_from_database service on the API.
+        fetch_post_for_embed = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/fetch_post_for_embed.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = fetch_post_for_embed["result"]
+        @message = fetch_post_for_embed["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = fetch_post_for_embed["payload"]
+
+        #ITTT result.
+        if @result == "success"
+          
+            @post = @payload["post"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error fetching this post."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a post uid, we cannot find your post."
+        
+    end
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.html { render action: 'embed_post', layout: 'embed' }
+    end
+      
+  end      
   
   def check_db_session_token
   
@@ -684,6 +738,80 @@ class BlogsController < ApplicationController
         format.js { render action: 'unpublish_results' }
     end
       
-  end  
+  end
+ 
+  def get_add_permitted_domain_form
+  
+    #fetch blog from database.
+
+    if params[:uid].present?
+       
+       @blog_uid = params[:uid]
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a blog uid, we cannot find your blog to change permitted domains."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'load_inline_permitted_domain_adder' }
+    end
+  
+  end     
+  
+  def add_permitted_domain
+      
+    if params[:blog_uid].present? && params[:permitted_domain].present?
+       
+       #build the query to send to the API server    
+        query = {:permitted_domain => params[:permitted_domain], :blog_uid => params[:blog_uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/add_permitted_domain service on the API.
+        add_permitted_domain_call = HTTParty.post(
+            Rails.configuration.access_point['api_domain'] + '/v1/add_permitted_domain.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = add_permitted_domain_call["result"]
+        @message = add_permitted_domain_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = add_permitted_domain_call["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+          
+            @blog_details = @payload["blog_details"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error adding this permitted domain."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a blog uid, we cannot find your blog."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'add_permitted_domain_results' }
+    end
+      
+  end      
   
 end

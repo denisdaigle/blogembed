@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-	static targets = ["form", "blogNameInput", "blogNameError", "errorMessage", "errorMessageHolder", "processingMessage", "processingMessageHolder"]
+	static targets = ["form", "permittedDomainInput", "permittedDomainError", "errorMessage", "errorMessageHolder", "processingMessage", "processingMessageHolder"]
 	
 	save(event) {
 		
@@ -11,7 +11,7 @@ export default class extends Controller {
 		
 		if(this.blogNameInputTarget.value == ""){
 			//inform the user.
-			this.blogNameErrorTarget.textContent = "Please provide a name for this blog"
+			this.blogNameErrorTarget.textContent = "Please provide a domain to add"
 			this.blogNameErrorTarget.classList.remove("hidden")
 			//prevent form submit.
 			event.preventDefault()

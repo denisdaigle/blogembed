@@ -24,22 +24,30 @@ Rails.application.routes.draw do
   get '/blogs' => "blogs#blogs"
   get '/create_blog_and_post' => "blogs#create_blog_and_post"
   post '/save_blog_and_post_content' => "blogs#save_blog_and_post_content"
+  get '/edit_blog' => "blogs#edit_blog"
+  get '/delete_blog' => "blogs#delete_blog"
+  get '/get_add_permitted_domain_form' => "blogs#get_add_permitted_domain_form"
+  post '/add_permitted_domain' => "blogs#add_permitted_domain"
+  
+  #posts
   get '/post' => "blogs#view_post"
   get '/edit_post' => "blogs#edit_post"
   get '/delete_post' => "blogs#delete_post"
   post '/save_post_content' => "blogs#save_post_content"
-  get '/edit_blog' => "blogs#edit_blog"
-  get '/delete_blog' => "blogs#delete_blog"
   get '/add_a_post_to_blog' => "blogs#add_a_post_to_blog"
   post '/create_post' => "blogs#create_post"
   post '/save_blog_details_changes' => "blogs#save_blog_details_changes"
-  
   get '/publish_post' => "blogs#publish_post"
   get '/unpublish_post' => "blogs#unpublish_post"
+  
+  #embed
+  get '/embed' => "blogs#embed"
   
   #utilities
   get '/ask' => "application#ask"
   get '/inform' => "application#inform"
+
+
 
   root "pages#home"
   

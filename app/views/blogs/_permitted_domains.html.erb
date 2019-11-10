@@ -17,7 +17,9 @@
       </td>
     <% end %>
     <td>
-      <a href="/add_permitted_domain?uid=<%= blog_uid %>" data-remote="true" class="h-8 text-xs px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">add</span></a>
+      <div id="blog_uid_<%= blog_uid %>_add_permitted_domain_area">
+        <%= render 'add_permitted_domain_button', :blog_uid => blog_uid %>
+      </div>
     </td>
   </tr>
 </table>

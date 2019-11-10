@@ -38,7 +38,7 @@
     </div>
     
     <div class="mt-4 mb-3">
-      <textarea readonly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"><iframe href="<%= Rails.configuration.access_point["webserver_domain"]%>/"></iframe></textarea>
+      <textarea readonly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"><iframe src="<%= Rails.configuration.access_point["webserver_domain"]%>/embed?uid=<%= @post["post_uid"]%>" frameborder="0" allowfullscreen="" style="width:100%;height:100%;" data-ready="true"></iframe></textarea>
     </div>
     
     <div class="w-full mt-2">

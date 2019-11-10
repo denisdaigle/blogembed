@@ -63,5 +63,8 @@ Rails.application.configure do
      :authentication       => "login",
      :enable_starttls_auto => true
   }
+  
+  #permit iframe from another website.
+  config.action_dispatch.default_headers = { 'X-Frame-Options' => "ALLOWALL"}
    
 end
