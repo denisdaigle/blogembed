@@ -33,6 +33,8 @@ class BlogsController < ApplicationController
             
         else
         
+            @reason = fetch_post_for_embed["reason"]
+
             if @message.present?
                 @error_message = @message
             else
@@ -803,7 +805,7 @@ class BlogsController < ApplicationController
         
         @result = "failure"
         
-        @error_message = "Sorry, without a blog uid, we cannot find your blog."
+        @error_message = "Sorry, your blog uid or permitted domain is missing."
         
     end    
     
@@ -814,9 +816,60 @@ class BlogsController < ApplicationController
       
   end      
   
+  def remove_permitted_domain
+      
+    if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:permitted_domain_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/add_permitted_domain service on the API.
+        remove_permitted_domain_call = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/remove_permitted_domain.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = remove_permitted_domain_call["result"]
+        @message = remove_permitted_domain_call["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = remove_permitted_domain_call["payload"]
+    
+        #ITTT result.
+        if @result == "success"
+            
+            @blog_details = @payload["blog_details"]
+            
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error removing this permitted domain."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, your permitted domain uid is missing."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'remove_permitted_domain_results' }
+    end
+      
+  end      
+  
   def reload_blog_details
       
-      if params[:uid].present?
+    if params[:uid].present?
        
        #build the query to send to the API server    
         query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}

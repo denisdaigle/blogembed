@@ -2,7 +2,7 @@
   <p class="mt-2 text-3xl font-display font-semibold leading-tight lg:leading-tight"><%= blog_details["blog_name"] %></p>
 </div>
 
-<div class="w-full flex justify-between">
+<div class="w-full flex flex-wrap justify-between">
     <div>
       <%= render 'permitted_domains', :blog_permitted_domains => blog_details["blog_permitted_domains"], :blog_uid => blog_details["blog_uid"] %>
     </div>

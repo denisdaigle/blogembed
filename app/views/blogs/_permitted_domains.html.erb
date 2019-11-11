@@ -1,20 +1,31 @@
-<table class="mt-4 table-auto">
+<table class="mt-4">
   <tr>
     <td>
-      <div>
-        <span class="uppercase tracking-widest text-xs text-gray-700">domains:</span>
-      </div>
-    </td>
-    <% if blog_permitted_domains %>
-      <% blog_permitted_domains.each do |permitted_domain| %>
-        <td>
-          <%= permitted_domain %>
-        </td>
-      <% end %>
-    <% end %>
-    <td>
-      <div id="blog_uid_<%= blog_uid %>_add_permitted_domain_area">
-        <%= render 'add_permitted_domain_button', :blog_uid => blog_uid %>
+      <div class="flex flex-wrap">
+        
+        <div class="mr-1">
+          <span class="uppercase tracking-widest text-xs text-gray-700">domains:</span>
+        </div>
+        
+        <% if blog_permitted_domains %>
+          <% blog_permitted_domains.each do |permitted_domain| %>
+            <div class="flex rounded text-blue-500 leading-none mt-1 border-2 border-white">
+              <div class="text-sm">
+                <%= permitted_domain[0] %>
+              </div>
+              <div class="w-5 ml-1 mr-1 border-2 border-white -mt-1">
+                <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20remove%20this%20permitted%20domain&#63;&a=remove_permitted_domain&#63;uid=<%= permitted_domain[1] %>" data-remote="true" class="">
+                  <span class="text-blue-500 text-md hover:font-black">&times;</span>
+                </a>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+    
+        <div id="blog_uid_<%= blog_uid %>_add_permitted_domain_area" class="ml-2">
+          <%= render 'add_permitted_domain_button', :blog_uid => blog_uid %>
+        </div>
+        
       </div>
     </td>
   </tr>

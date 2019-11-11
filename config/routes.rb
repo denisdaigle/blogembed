@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/delete_blog' => "blogs#delete_blog"
   get '/get_add_permitted_domain_form' => "blogs#get_add_permitted_domain_form"
   post '/add_permitted_domain' => "blogs#add_permitted_domain"
+  get '/remove_permitted_domain' => "blogs#remove_permitted_domain"
   get '/reload_blog_details' => "blogs#reload_blog_details"
   
   #posts

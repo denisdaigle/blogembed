@@ -10,16 +10,8 @@
       <h2 class="text-2xl font-display font-semibold leading-tight mt-2 lg:leading-tight"><%= @post["post_title"] %></h2>
     </div>
     
-    <div class="leading-none md:hidden mb-4">
-       <% if @post["post_last_published"].present? %>
-         <span class="uppercase tracking-widest text-xs text-blue-500">published: <%= @post["post_last_published"] %></span>
-         <br/> 
-       <% end %>
-       <span class="uppercase tracking-widest text-xs text-gray-700">updated: <%= @post["post_last_updated"] %></span>
-    </div>
-    
-    <div class="w-full flex justify-between">
-      <div class="leading-none hidden md:block">
+    <div class="w-full flex flex-wrap justify-between">
+      <div class="leading-none mb-2">
          <% if @post["post_last_published"].present? %>
            <span class="uppercase tracking-widest text-xs text-blue-500">published: <%= @post["post_last_published"] %></span>
            <br/> 

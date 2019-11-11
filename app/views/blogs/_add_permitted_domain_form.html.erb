@@ -1,33 +1,31 @@
-<div data-controller="addPermittedDomainForm" class="w-full mt-4">
+<div data-controller="addPermittedDomainForm" class="w-full">
   
     <%= form_tag add_permitted_domain_path(), 'data-target' => "addPermittedDomainForm.form", :method => :post, :id => "addPermittedDomainForm_form", :authenticity_token => true, :remote => true do %>
         <%= hidden_field_tag :blog_uid, @blog_uid %>
         <div class="w-full flex">
-            <div class="mr-4">
-                <input id="permitted_domain" name="permitted_domain" data-target="addPermittedDomainForm.permittedDomainInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="permitted_domain.com">
+            <div class="mr-1">
+                <input id="permitted_domain" name="permitted_domain" data-target="addPermittedDomainForm.permittedDomainInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-1 px-1 mb-1 leading-tight focus:outline-none focus:bg-white focus:border-gray-500 text-sm" type="text" placeholder="domain.com">
             </div>
-            <div class="mt-1 mr-4">
-                <%= submit_tag "add", 'data-action' => 'click->addPermittedDomainForm#add', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "addPermittedDomainForm_add_button" %>
+            <div class="">
+                <%= submit_tag "add", 'data-action' => 'click->addPermittedDomainForm#add', :class => "h-6 text-xs px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900", :id => "addPermittedDomainForm_add_button" %>
             </div>
-            <div class="mt-3">
-                <a href="/reload_blog_details?uid=<%= @blog_uid %>" data-remote="true" class="hover:font-bold">cancel</a>
+            <div class="">
+                <a href="/reload_blog_details?uid=<%= @blog_uid %>" data-remote="true" class="text-xs h-6 text-xs px-1 py-1 leading-none text-gray-500 hover:border-gray-900 hover:text-gray-900">cancel</a>
             </div>
         </div>
-        <p class="text-red-500 text-xs italic hidden" data-target="addPermittedDomainForm.permittedDomainError"></p>
+        <p class="text-red-500 text-xs italic hidden leading-none" data-target="addPermittedDomainForm.permittedDomainError"></p>
     <% end %>
   
   
-    <div class="w-full flex hidden" data-target="addPermittedDomainForm.errorMessageHolder" id="addPermittedDomainForm_errorMessageHolder">
+    <div class="hidden leading-none" data-target="addPermittedDomainForm.errorMessageHolder" id="addPermittedDomainForm_errorMessageHolder">
       
-      <div class="">
-        <span data-target="addPermittedDomainForm.errorMessage" id="addPermittedDomainForm_errorMessage" class="text-red-500 text-xs italic hidden">
+      <span data-target="addPermittedDomainForm.errorMessage" id="addPermittedDomainForm_errorMessage" class="text-red-500 text-xs italic hidden">
   
-        </span>
-      </div>
+      </span>
       
     </div>
     
-    <div class="w-full justify-center flex hidden" data-target="addPermittedDomainForm.processingMessageHolder" id="addPermittedDomainForm_processingMessageHolder">
+    <div class="hidden leading-none" data-target="addPermittedDomainForm.processingMessageHolder" id="addPermittedDomainForm_processingMessageHolder">
       
       <div class="">
         <span data-target="addPermittedDomainForm.processingMessage" id="addPermittedDomainForm_processingMessage" class="text-red-500 text-xs italic hidden">
@@ -35,7 +33,7 @@
         </span>
       </div>
       
-      <div class="mt-3 ml-1">
+      <div class="mt-0 ml-1">
         <img src="<%= image_path('dots.svg') %>"/>
       </div>
       
