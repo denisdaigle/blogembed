@@ -15,12 +15,20 @@
  */
 
 
+.trix-content{
+    height: 350px;
+    overflow-y: auto;
+}
+
 /* CSS specific to the embedded post, bypassing tailwindcss. */
 .embedded_post{
     font-family: "Helvetica neuve", Helvetica, Arial, sans-serif;
-    letter-spacing:0.02em;
-    line-height: 1.5;
-    font-size:1.2em;
+    /*letter-spacing:0.02em;*/
+    color: rgba(0,0,0,0.8); /* medium: rgba(0,0,0,0.8) */
+    line-height: 28.065px; /* medium: 33.18px */ /* trix: 28.065px */
+    font-size: 18.71px; /* medium: 21px;*/ /* trix: 18.71px */ 
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
 }
 
 .embedded_post h1 {

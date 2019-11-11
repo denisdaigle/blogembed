@@ -13,10 +13,10 @@
     <div class="w-full flex flex-wrap justify-between">
       <div class="leading-none mb-2">
          <% if @post["post_last_published"].present? %>
-           <span class="uppercase tracking-widest text-xs text-blue-500">published: <%= @post["post_last_published"] %></span>
+           <span class="uppercase tracking-widest text-xs text-blue-300">published: <%= @post["post_last_published"] %></span>
            <br/> 
          <% end %>
-         <span class="uppercase tracking-widest text-xs text-gray-700">updated: <%= @post["post_last_updated"] %></span>
+         <span class="uppercase tracking-widest text-xs text-gray-400">updated: <%= @post["post_last_updated"] %></span>
       </div>
       <div>
         <a href="#" data-action="click->postJsController#toggle" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-0"><span class="uppercase tracking-widest text-xs">&lt;iframe&gt;</span></a>
