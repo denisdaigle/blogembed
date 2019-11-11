@@ -17,6 +17,11 @@
 
 /* CSS specific to the embedded post, bypassing tailwindcss. */
 
+
+.embedded_post{
+    line-height: 1.3;
+}
+
 .embedded_post h1 {
     font-size:400%;
 }
@@ -33,8 +38,7 @@
     padding:10px;
 }
 
-.embedded_post{
-    /* font-family: serif; */
-    line-height: 1.3;
-    text-align: justify;
+.embedded_post a {
+    color: #4299e1;
+    text-decoration:underline;
 }
