@@ -1,6 +1,6 @@
 <% if @post.present? %>
 
-  <div class="mx-auto mt-16 py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3">
+  <div class="mx-auto mt-16 py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3" data-controller="postJsController">
   
     <div>
       <a href="/blogs" class="text-sm underline">Back to my blogs and posts</a>
@@ -19,21 +19,22 @@
          <span class="uppercase tracking-widest text-xs text-gray-700">updated: <%= @post["post_last_updated"] %></span>
       </div>
       <div>
+        <a href="#" data-action="click->postJsController#toggle" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-0"><span class="uppercase tracking-widest text-xs">&lt;iframe&gt;</span></a>
         <% if @post["post_status"] == "draft" %>
-          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20PUBLISH%20this%20post&#63;&a=publish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">publish</span></a>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20PUBLISH%20this%20post&#63;&a=publish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-0"><span class="uppercase tracking-widest text-xs">publish</span></a>
         <% else %>
-          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20UNPUBLISH%20this%20post&#63;&a=unpublish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">unpublish</span></a>
+          <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20UNPUBLISH%20this%20post&#63;&a=unpublish_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-0"><span class="uppercase tracking-widest text-xs">unpublish</span></a>
         <% end %>
-        <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20post&#63;&a=delete_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">delete</span></a>
+        <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20post&#63;&a=delete_post&#63;uid=<%= @post["post_uid"] %>" data-remote="true" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-0"><span class="uppercase tracking-widest text-xs">delete</span></a>
         <a href="/edit_post?uid=<%= @post["post_uid"] %>" class="h-8 px-2 pt-1 pb-2 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4"><span class="uppercase tracking-widest text-xs">edit</span></a>
       </div>
     </div>
     
-    <div class="mt-4 mb-3">
+    <div class="mt-4 mb-3 hidden" data-target="postJsController.code">
       <textarea readonly class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"><iframe src="<%= Rails.configuration.access_point["webserver_domain"]%>/embed?uid=<%= @post["post_uid"]%>" frameborder="0" allowfullscreen="" style="width:100%;height:100%;" data-ready="true"></iframe></textarea>
     </div>
     
-    <div class="w-full mt-2">
+    <div class="w-full mt-4">
       <div class="embedded_post">
         <%= raw @post["post_content"] %>
       </div>

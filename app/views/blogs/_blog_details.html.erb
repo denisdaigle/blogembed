@@ -8,10 +8,10 @@
     </div>
     <div class="flex mt-4">
       <div>
-          <a href="/add_a_post_to_blog?uid=<%= blog_details["blog_uid"] %>" class="h-8 px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">post</span></a>
+          <a href="/add_a_post_to_blog?uid=<%= blog_details["blog_uid"] %>" class="h-8 px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-1"><span class="uppercase tracking-widest text-xs">post</span></a>
       </div>
       <div>
-          <a href="/edit_blog?uid=<%= blog_details["blog_uid"] %>" data-remote="true" class="h-8 px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-4"><span class="uppercase tracking-widest text-xs">edit</span></a>
+          <a href="/edit_blog?uid=<%= blog_details["blog_uid"] %>" data-remote="true" class="h-8 px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4 mr-1"><span class="uppercase tracking-widest text-xs">edit</span></a>
       </div>
       <div>
           <a href="/ask?q=Are%20you%20sure%20you%20want%20to%20delete%20this%20blog%20and%20all%20posts&#63;&a=delete_blog&#63;uid=<%= blog_details["blog_uid"] %>" data-remote="true" class="h-8 px-2 py-1 leading-none border rounded text-gray-500 border-gray-500 hover:border-gray-900 hover:text-gray-900 mt-4 lg:mt-4"><span class="uppercase tracking-widest text-xs">delete</span></a>
