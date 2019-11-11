@@ -3,7 +3,7 @@ import { Controller } from "stimulus"
 export default class extends Controller {
 	static targets = ["form", "postTitleInput", "postTitleError", "postContentInput", "postContentError", "errorMessage", "errorMessageHolder", "processingMessage", "processingMessageHolder"]
 	
-	save(event) {
+	create(event) {
 		
 		//hide all errors that may be open.
 		this.postTitleErrorTarget.classList.add("hidden")

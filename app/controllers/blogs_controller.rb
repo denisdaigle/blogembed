@@ -6,41 +6,51 @@ class BlogsController < ApplicationController
     
     if params[:uid].present?
         
-        #Let's capture the requesting url.
-        @requesting_url = request.referrer.gsub("https://", "").gsub("http://", "").gsub("/", "")
+        #Let's make sure this is not a diret link access.
+        if request.referrer.present?
         
-        #build the query to send to the API server    
-        query = {:post_uid => params[:uid], :requesting_url => @requesting_url}
-        
-        #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
-        
-        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_post_from_database service on the API.
-        fetch_post_for_embed = HTTParty.get(
-            Rails.configuration.access_point['api_domain'] + '/v1/fetch_post_for_embed.json', 
-            :query => query,
-            :headers => headers
-        )
-        
-        @result = fetch_post_for_embed["result"]
-        @message = fetch_post_for_embed["message"] #Message comes from the API to help with future I18n multilingualism.
-        @payload = fetch_post_for_embed["payload"]
-
-        #ITTT result.
-        if @result == "success"
-          
-            @post = @payload["post"]
+            #Let's capture the requesting url.
+            @requesting_url = request.referrer.gsub("https://", "").gsub("http://", "").gsub("/", "")
             
-        else
-        
-            @reason = fetch_post_for_embed["reason"]
-
-            if @message.present?
-                @error_message = @message
+            #build the query to send to the API server    
+            query = {:post_uid => params[:uid], :requesting_url => @requesting_url}
+            
+            #Grab the variables for this connection from the secrets.yml file.
+            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            
+            #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_post_from_database service on the API.
+            fetch_post_for_embed = HTTParty.get(
+                Rails.configuration.access_point['api_domain'] + '/v1/fetch_post_for_embed.json', 
+                :query => query,
+                :headers => headers
+            )
+            
+            @result = fetch_post_for_embed["result"]
+            @message = fetch_post_for_embed["message"] #Message comes from the API to help with future I18n multilingualism.
+            @payload = fetch_post_for_embed["payload"]
+    
+            #ITTT result.
+            if @result == "success"
+              
+                @post = @payload["post"]
+                
             else
-                @error_message = "Sorry, there was an error fetching this post."
-            end  
+            
+                @reason = fetch_post_for_embed["reason"]
+    
+                if @message.present?
+                    @error_message = @message
+                else
+                    @error_message = "Sorry, there was an error fetching this post."
+                end  
+            
+            end
         
+        else
+            
+            @reason = "no_referrer"
+            @error_message = "Hi there, this protected content can only be viewed using an <iframe> tag."
+            
         end
 
     else

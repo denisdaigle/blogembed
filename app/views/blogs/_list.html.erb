@@ -24,7 +24,7 @@
                               <div class="overflow-hidden w-full border rounded border-gray-400 bg-white  p-4 flex flex-col justify-between leading-normal">
                                 <div class="mb-8">
                                   <div class="text-gray-900 font-bold text-xl mb-2"><%= blog_post["post_title"] %></div>
-                                  <p class="text-gray-700 text-base"><%= blog_post["post_content_preview"] %></p>
+                                  <p class="text-gray-700 text-base"><%= simple_format(strip_tags(blog_post["post_content_preview"]))  %></p>
                                 </div>
                                 
                                 <% if blog_post["post_status"] == "live" %>

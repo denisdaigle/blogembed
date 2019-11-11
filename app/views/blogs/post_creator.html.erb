@@ -10,7 +10,9 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="post_title">
                     Post title
                 </label>
+                
                 <input id="post_title" name="post_title" data-target="createPostForm.postTitleInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="What's the post title?">
+                
                 <p class="text-red-500 text-xs italic hidden" data-target="createPostForm.postTitleError"></p>
             </div>
             
@@ -18,7 +20,10 @@
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="post_content">
                     Content
                 </label>
-                <textarea id="post_content" name="post_content" data-target="createPostForm.postContentInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" rows="3" placeholder="Tell us about it!"></textarea>
+                
+                <trix-editor id="post_content" input="trix_input_post_1" class="trix-content appearance-none block w-full h-screen bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"></trix-editor>
+                <input id="trix_input_post_1" value="" type="hidden" name="post_content" data-target="createPostForm.postContentInput">
+
                 <p class="text-red-500 text-xs italic hidden" data-target="createPostForm.postContentError"></p>
             </div>
             

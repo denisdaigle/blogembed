@@ -1,6 +1,8 @@
 <% if @post.present? %>
     
-    <%= @post %>
+    <div class="embedded_post">
+      <%= raw @post %>
+    </div>
 
 <% else %>
 
@@ -15,6 +17,13 @@
   
     <div class="border-dashed border-4 border-gray-500 px-4 py-4 text-center">
         <div class=""><span class="text-2xl text-gray-800 font-bold">Content is missing</span></div>
+        <div class="mt-2"><span class="text-xl text-gray-800"><%= @error_message %></span></div>
+    </div>
+
+  <% elsif @reason.present? && @reason == "no_referrer" %>
+  
+    <div class="border-dashed border-4 border-gray-500 px-4 py-4 text-center">
+        <div class=""><span class="text-2xl text-gray-800 font-bold">Direct access not permitted</span></div>
         <div class="mt-2"><span class="text-xl text-gray-800"><%= @error_message %></span></div>
     </div>
   

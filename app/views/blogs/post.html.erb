@@ -34,9 +34,9 @@
     </div>
     
     <div class="w-full mt-2">
-      <p class="sm:text-lg lg:leading-normal text-left font-normal lg:font-thin">
-        <%= @post["post_content"] %>
-      </p>
+      <div class="embedded_post">
+        <%= raw @post["post_content"] %>
+      </div>
     </div>
     
   </div>
