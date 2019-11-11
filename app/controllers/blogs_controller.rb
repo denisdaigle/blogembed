@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
   before_action :check_db_session_token, :except => :embed
   
   def embed
-
+      
     if params[:uid].present?
         
         #Let's capture the requesting url.
@@ -745,7 +745,7 @@ class BlogsController < ApplicationController
     #fetch blog from database.
 
     if params[:uid].present?
-       
+        
        @blog_uid = params[:uid]
 
     else
@@ -786,7 +786,7 @@ class BlogsController < ApplicationController
     
         #ITTT result.
         if @result == "success"
-          
+            
             @blog_details = @payload["blog_details"]
             
         else
@@ -810,6 +810,57 @@ class BlogsController < ApplicationController
     #Resulting HTML file from setup save attempt.
     respond_to do |format|
         format.js { render action: 'add_permitted_domain_results' }
+    end
+      
+  end      
+  
+  def reload_blog_details
+      
+      if params[:uid].present?
+       
+       #build the query to send to the API server    
+        query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
+        
+        #Grab the variables for this connection from the secrets.yml file.
+        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        
+        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_blog_details service on the API.
+        fetch_blog_details = HTTParty.get(
+            Rails.configuration.access_point['api_domain'] + '/v1/fetch_blog_details.json', 
+            :query => query,
+            :headers => headers
+        )
+        
+        @result = fetch_blog_details["result"]
+        @message = fetch_blog_details["message"] #Message comes from the API to help with future I18n multilingualism.
+        @payload = fetch_blog_details["payload"]
+
+        #ITTT result.
+        if @result == "success"
+          Rails.logger.debug "@payload #{@payload}"
+            @blog_details = @payload["blog_details"]
+            Rails.logger.debug "@blog_details #{@blog_details}"
+        else
+        
+            if @message.present?
+                @error_message = @message
+            else
+                @error_message = "Sorry, there was an error fetching blog details."
+            end  
+        
+        end
+
+    else
+        
+        @result = "failure"
+        
+        @error_message = "Sorry, without a blog uid, we cannot find your blog."
+        
+    end    
+    
+    #Resulting HTML file from setup save attempt.
+    respond_to do |format|
+        format.js { render action: 'reload_blog_details_results' }
     end
       
   end      

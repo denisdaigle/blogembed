@@ -6,15 +6,11 @@
       </div>
     </td>
     <% if blog_permitted_domains %>
-      <% blog_permitted_domains.each do |domain| %>
+      <% blog_permitted_domains.each do |permitted_domain| %>
         <td>
-          domain["url"]
+          <%= permitted_domain %>
         </td>
       <% end %>
-    <% else %>
-      <td>
-        
-      </td>
     <% end %>
     <td>
       <div id="blog_uid_<%= blog_uid %>_add_permitted_domain_area">

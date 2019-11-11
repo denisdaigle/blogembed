@@ -1,1 +1,7 @@
-document.getElementById('blog_<%= @blog_details["blog_uid"] %>_details_editor').innerHTML = "<%= j render 'blog_details_editor' %>";
+<% if @result == "success" %>
+    document.getElementById('blog_<%= @blog_details["blog_uid"] %>_details').innerHTML = "<%= j render 'blog_details_editor' %>";
+<% else %>
+    //show an error message as an info popup.
+    <% @info = @error_message %>
+    document.getElementById('popup_holder').innerHTML = "<%= j render 'info_popup' %>";
+<% end %>

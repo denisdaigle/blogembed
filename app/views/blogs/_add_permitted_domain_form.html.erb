@@ -10,7 +10,7 @@
                 <%= submit_tag "add", 'data-action' => 'click->addPermittedDomainForm#add', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "addPermittedDomainForm_add_button" %>
             </div>
             <div class="mt-3">
-                <a href="/blogs" class="hover:font-bold">cancel</a>
+                <a href="/reload_blog_details?uid=<%= @blog_uid %>" data-remote="true" class="hover:font-bold">cancel</a>
             </div>
         </div>
         <p class="text-red-500 text-xs italic hidden" data-target="addPermittedDomainForm.permittedDomainError"></p>

@@ -1,5 +1,7 @@
-<% if %>
+<% if @result == "success" %>
     document.getElementById('blog_uid_<%= @blog_uid %>_add_permitted_domain_area').innerHTML = "<%= j render 'add_permitted_domain_form' %>";
 <% else %>
-
+    //show an error message as an info popup.
+    <% @info = @error_message %>
+    document.getElementById('popup_holder').innerHTML = "<%= j render 'info_popup' %>";
 <% end %>
