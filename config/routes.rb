@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  get 'upgrade/offer'
   get 'blogs/list'
   get 'passwords/request_reset_password_link'
   get '/welcome' => "pages#welcome"
@@ -49,7 +50,8 @@ Rails.application.routes.draw do
   get '/ask' => "application#ask"
   get '/inform' => "application#inform"
 
-
+  #upgrade account
+  get '/upgrade' => "upgrade#offer"
 
   root "pages#home"
   

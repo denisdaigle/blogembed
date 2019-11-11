@@ -5,8 +5,18 @@
 
 <% else %>
 
-  //show an error message as an info popup.
-  <% @info = @error_message %>
-  document.getElementById('popup_holder').innerHTML = "<%= j render 'info_popup' %>";
+  <% if @reason.present? && @reason == "trial_paywall" %>
+  
+    //show an error message as an info popup.
+    <% @pre_link_paywall_message = @error_message %>
+    document.getElementById('popup_holder').innerHTML = "<%= j render 'paywall' %>";
+  
+  <% else %>
+  
+    //show an error message as an info popup.
+    <% @info = @error_message %>
+    document.getElementById('popup_holder').innerHTML = "<%= j render 'info_popup' %>";
+  
+  <% end %>
   
 <% end %>

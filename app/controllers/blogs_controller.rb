@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
   before_action :check_db_session_token, :except => :embed
   
   def embed
-      
+    
     if params[:uid].present?
         
         #Let's capture the requesting url.
@@ -667,6 +667,8 @@ class BlogsController < ApplicationController
             @post = @payload["post"]
             
         else
+        
+            @reason = publish_post_call["reason"]
         
             if @message.present?
                 @error_message = @message
