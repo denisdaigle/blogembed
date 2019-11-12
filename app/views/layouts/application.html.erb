@@ -27,8 +27,26 @@
         
         <% if cookies[:db_session_token].present? %>
       
-          <div class="absolute inset-y-0 right-0">
-                <a href="/logout" class="inline-block text-sm px-4 py-2 leading-none border rounded text-gray-900 hover:border-transparent hover:text-gray-100 hover:bg-black mt-4 lg:mt-4 mr-4" data-remote="true">log out</a>
+          <div class="absolute right-0">
+            <div class="flex flex-wrap">
+              <div class="mt-4 mr-2">
+                <a href="/help">
+                  <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Help</div>
+                </a>
+              </div>
+              <div class="mt-4 mr-2">
+                <a href="/upgrade">
+                  <% if @account_type.present? && @account_type == "hero" %>
+                    <span class="inline-block bg-blue-500 rounded-full px-3 py-1 text-md font-semibold text-gray-100">Hero</span>
+                  <% else %>
+                    <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Upgrade</div>
+                  <% end %>
+                </a>
+              </div>
+              <div class="mt-4 mr-4">
+                <a href="/logout" class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold" data-remote="true">Log out</a>
+              </div>
+            </div>
           </div> 
         
         <% end %>

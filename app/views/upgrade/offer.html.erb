@@ -1,2 +1,133 @@
-<h1>Upgrade your account</h1>
-<p>click [here] to upgrade your account and purchase through stripe.</p>
+
+<% if @already_upgraded == true %>
+
+  <div class="mt-20 mb-10 w-full mx-auto text-center">
+    <span class="text-5xl font-black">You're good to go!</span>
+  </div> 
+
+  <div class="py-8 px-8 flex flex-wrap w-full sm:w-full md:w-2/5 lg:w-2/5 mx-auto">
+  
+    <div class="rounded-lg overflow-hidden shadow-lg border-2 border-gray-200 py-10">
+      <img class="w-full" src="<%= image_path("blogembed-buyer.jpg") %>" alt="BlogEmbed Hero">
+      <div class="px-6 py-4">
+        <div class="font-black text-xl mb-2">BlogEmbed Hero</div>
+        <p class="text-gray-700 text-base text-lg">
+          $5/month all-inclusive, unlimited published posts, no hidden fees
+        </p>
+      </div>
+      <div class="px-6 py-4 text-center">
+        <a href="#!">
+          <div class="bg-transparent text-gray-500 py-2 px-4 border border-gray-500 rounded font-light">
+            current plan
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>  
+  
+  <div class="mt-10 mb-24 w-full md:w-2/5 mx-auto text-center px-2">
+    <p class="text-lg">
+      Thank you for your support! If you have any questions or need to change your account type, we'd love to <a href="/help" class="underline">help</a> you! Don't be shy.
+    </p>
+  </div> 
+
+<% else %>
+
+  <div class="mt-20 mb-20 w-full mx-auto text-center">
+    <span class="text-5xl font-black">Ready for more?</span>
+  </div>  
+    
+  <div class="py-8 px-8 flex flex-wrap w-full sm:w-full md:w-2/3 lg:w-2/3 mx-auto mt-4">
+      
+    <div class="max-w-sm rounded overflow-hidden py-10">
+      <img class="w-full" src="<%= image_path("blogembed-tirekicker.jpg") %>" alt="BlogEmbed Tire-Kicker">
+      <div class="px-6 py-4">
+        <div class="font-black text-xl mb-2">BlogEmbed Tire-kicker</div>
+        <p class="text-gray-700 text-base text-lg">
+          Limited to 3 published posts, but free
+        </p>
+      </div>
+      <div class="px-6 py-4 text-center mt-6">
+        <div class="bg-transparent text-gray-500 py-2 px-4 border border-gray-500 rounded font-light">
+          current plan
+        </div>
+      </div>
+    </div>
+  
+    <div class="max-w-sm rounded-lg overflow-hidden shadow-lg hover:shadow-2xl border-2 border-gray-200 py-10">
+      <img class="w-full" src="<%= image_path("blogembed-buyer.jpg") %>" alt="BlogEmbed Hero">
+      <div class="px-6 py-4">
+        <div class="font-black text-xl mb-2">BlogEmbed Hero</div>
+        <p class="text-gray-700 text-base text-lg">
+          $5/month all-inclusive, unlimited published posts, no hidden fees
+        </p>
+      </div>
+      <div class="px-6 py-4 text-center">
+        <a href="/process_upgrade" data-remote="true">
+          <div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+            upgrade
+          </div>
+        </a>
+      </div>
+    </div>
+      
+  </div>
+  
+  <div class="py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3 mx-auto mt-16">
+    
+    <div class="mt-4 mb-4">
+      <div class="text-2xl font-black leading-tight">What's BlogEmbed again?</div>
+      <p class="text-lg">
+        BlogEmbed.com is a tool made for influencers and content creators who need the ability to control access to their content and need the same ease-of-use as embedding video content. Just like many content creators who embed their video content on their websites using iFrames, now with BlogEmbed.com you can do the same thing for your blog posts content.
+      </p>
+    </div>
+    
+    <div class="mt-10 mb-4">
+      <div class="text-2xl font-black leading-tight">Why would you want to embed a video or a post on your website?</div>
+      <p class="text-lg">To control the access to it. That way you can control the experience and the audience access.</p>
+    </div>
+    
+    <div class="mt-10 mb-4">
+      <div class="text-2xl font-black leading-tight">How does it work?</div>
+      <p class="text-lg">
+        It’s as simple as creating a blog and post, adding a domain that’s permitted to embed it and copy and pasting the provided HTML into your own code.
+      </p>
+    </div>
+    
+    <div class="mt-10 mb-4">
+      <div class="text-2xl font-black leading-tight">Can I cancel at any time?</div>
+      <p class="text-lg">
+        There's no minimum contract — cancel at any time without penalty or hassle.
+      </p>
+    </div>
+    
+    <div class="mt-10 mb-4">
+      <div class="text-2xl font-black leading-tight">What if I have more questions?</div>
+      <p class="text-lg">
+        Happy to <a href="/help" class="underline">help</a>, we're all in this together.
+      </p>
+    </div>
+    
+  </div>
+  
+  
+  <div class="mx-auto py-8 px-8 mt-16 object-center text-center bg-gray-900">
+    <div class="text-2xl font-black leading-tight text-gray-100">It's time.</div>
+    <a href="/process_upgrade" data-remote="true">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+        upgrade
+      </button>
+    </a>
+  </div>
+
+<% end %>
+
+
+
+
+
+
+
+
+
