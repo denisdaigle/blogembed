@@ -14,7 +14,7 @@
   <body data-controller="main">
     
 
-    <div class="flex">
+    <div class="flex flex-wrap justify-between">
 
       <div class="flex mt-2 ml-2">
           <a href="/blogs">
@@ -24,54 +24,44 @@
             <p class="text-2xl mt-1 font-bold">BlogEmbed</p>
           </a>  
       </div>
-      
-      <% if cookies[:db_session_token].present? %>
-    
-        <div class="absolute right-0">
-          <div class="flex flex-wrap">
-            <div class="mt-4 mr-2">
-              <a href="/help">
-                <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Help</div>
-              </a>
-            </div>
-            <div class="mt-4 mr-2">
-              <a href="/upgrade">
-                <% if @account_type.present? && @account_type == "hero" %>
-                  <span class="inline-block bg-blue-500 rounded-full px-3 py-1 text-md font-semibold text-gray-100">Hero</span>
-                <% else %>
-                  <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Upgrade</div>
-                <% end %>
-              </a>
-            </div>
-            <div class="mt-4 mr-4">
-              <a href="/logout" class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold" data-remote="true">Log out</a>
-            </div>
-          </div>
-        </div> 
-      
-      <% else %>
-      
-        <div class="absolute right-0">
-          <div class="flex flex-wrap">
-            <div class="mt-4 mr-2">
-              <a href="/help">
-                <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Help</div>
-              </a>
-            </div>
-            <div class="mt-4 mr-2">
-              <a href="/">
-                <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Home</div>
-              </a>
-            </div>
-            <div class="mt-4 mr-2">
-              <a href="/login">
-                <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Login</div>
-              </a>
-            </div>
-          </div>
-        </div> 
-      
-      <% end %>
+
+      <div class="flex flex-wrap">
+        <div class="mt-4 mr-2">
+          <a href="/">
+            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Home</div>
+          </a>
+        </div>
+        <div class="mt-4 mr-2">
+          <a href="/help">
+            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Help</div>
+          </a>
+        </div>
+        <% if cookies[:db_session_token].present? %>
+        <div class="mt-4 mr-2">
+          <a href="/blogs">
+            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Blogs</div>
+          </a>
+        </div>
+        <div class="mt-4 mr-2">
+          <a href="/upgrade">
+            <% if @account_type.present? && @account_type == "hero" %>
+              <span class="inline-block bg-blue-500 rounded-full px-3 py-1 text-md font-semibold text-gray-100">Hero</span>
+            <% else %>
+              <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Upgrade</div>
+            <% end %>
+          </a>
+        </div>
+        <div class="mt-4 mr-2">
+          <a href="/logout" class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold" data-remote="true">Log out</a>
+        </div>
+        <% else %>
+        <div class="mt-4 mr-2">
+          <a href="/login">
+            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Login</div>
+          </a>
+        </div>
+        <% end %>
+      </div>
       
     </div>
     
@@ -98,8 +88,8 @@
   </body>
   
   <footer class='w-full bg-gray-900 mt-16'>
-    <div class="flex pb-16 py-16 items-start">
-      <div class="flex-1 px-4 py-2 ml-12">
+    <div class="flex flex-wrap pb-16 py-16 justify-between">
+      <div class="px-4 py-2 md:ml-12 md:w-2/5">
         <div class="flex -ml-2">
             <a href="/blogs">
               <img src="<%= image_path('logo-1-gray-100.svg') %>" style="height:45px;"/>
@@ -115,36 +105,42 @@
           <span class="text-sm antialiased">© 2019 <a href="https://blogembed.com/" class="" target="_blank">BlogEmbed.com</a>. All rights reserved.</span>
         </div>  
       </div>
-      <div class="flex-1 px-4 py-2 m-2"></div>
-      <div class="flex-1 px-4 py-2 m-2">
+      <div class="px-4 py-2 md:mr-12 -ml-4 mt-4 sm:mt-0 sm:ml-0">
         <div>
           <span class="text-md px-4 py-2 leading-none rounded text-gray-100 font-bold">Company</span>
         </div>
         <div class="mt-6">
           <a href="/">
-            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-200">Home</div>
+            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Home</div>
           </a>
         </div>
         <% unless cookies[:db_session_token].present? %>
           <div>
             <a href="/login">
-              <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-200">Login</div>
+              <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Login</div>
+            </a>
+          </div>
+        <% end %>
+        <% if cookies[:db_session_token].present? %>
+          <div>
+            <a href="/blogs">
+              <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Blogs</div>
             </a>
           </div>
         <% end %>
         <div>
-          <a href="/help">
-            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-200">Help</div>
+          <a href="/help"> 
+            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Help</div>
           </a>
         </div>
         <div>
           <a href="/terms">
-            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-200">Terms</div>
+            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Terms</div>
           </a>
         </div>
         <div>
           <a href="/privacy">
-            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-200">Privacy</div>
+            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Privacy</div>
           </a>
         </div>
       </div>

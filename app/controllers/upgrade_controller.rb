@@ -106,9 +106,9 @@ class UpgradeController < ApplicationController
     #Grab the variables for this connection from the secrets.yml file.
     headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
     
-    #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/check_db_session_token service on the API.
+    #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/process_upgrade service on the API.
     process_upgrade_call = HTTParty.get(
-      Rails.configuration.access_point['api_domain'] + '/v1/process_upgrade_call.json', 
+      Rails.configuration.access_point['api_domain'] + '/v1/process_upgrade.json', 
       :query => query,
       :headers => headers
     )
@@ -123,7 +123,7 @@ class UpgradeController < ApplicationController
         
     else
     
-        @reason = fetch_post_for_embed["reason"]
+        @reason = process_upgrade_call["reason"]
 
         if @message.present?
             @error_message = @message

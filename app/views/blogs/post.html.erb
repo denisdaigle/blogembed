@@ -1,6 +1,6 @@
 <% if @post.present? %>
 
-  <div class="mx-auto mt-16 py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3" data-controller="postJsController">
+  <div class="mx-auto mt-16 py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3 mb-48" data-controller="postJsController">
   
     <div>
       <a href="/blogs" class="text-sm underline">Back to my blogs and posts</a>
@@ -44,7 +44,7 @@
 
 <% else %>
 
-  <div class="mt-48">
+  <div class="mt-48 mb-48">
       <p class="mt-2 text-center"><%= @error_message %></p>
   </div>
   <div class="mt-10 text-center">
