@@ -13,7 +13,7 @@
     	    
             <div class="w-full">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="question_type">
-                What is your question about?
+                What is your question or message about?
               </label>
               
               <div class="relative">
@@ -26,6 +26,7 @@
                   <option value="email">I'm not receiving emails</option>
                   <option value="confused">I'm confused about how something works</option>
                   <option value="broken">I think something is broken</option>
+                  <option value="cancel">I wish to cancel my subscription</option>
                   <option value="other">Other</option>
                 </select>
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
@@ -39,7 +40,7 @@
          
             <div class="w-full mt-6">
               <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="question_type">
-                What is your question?
+                What is your question or message?
               </label>
               <textarea rows=6 id="question" name="question" data-target="helpForm.questionInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""></textarea>
               <p class="text-red-500 text-xs italic hidden" data-target="helpForm.questionError"></p>
