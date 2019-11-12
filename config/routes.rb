@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   get 'blogs/list'
   get 'passwords/request_reset_password_link'
   get '/welcome' => "pages#welcome"
+  get '/terms' => "pages#terms"
+  get '/privacy' => "pages#privacy"
   
   #USERS
   post '/user_sign_up' => "users#sign_up"
@@ -49,9 +51,12 @@ Rails.application.routes.draw do
   #utilities
   get '/ask' => "application#ask"
   get '/inform' => "application#inform"
+  get '/help' => "help#ask_for_help"
+  post '/send_for_help' => "help#send_for_help"
 
   #upgrade account
   get '/upgrade' => "upgrade#offer"
+  
 
   root "pages#home"
   

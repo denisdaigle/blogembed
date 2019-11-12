@@ -1,39 +1,97 @@
-What do you need help with? REQUIRED
-This helps make sure you get the right answer fast.
 
-<select id="ticket_issue_type" name="ticket[issue_type]">
-  <option value="">Please select one...</option>
-  <option value="login">I can't access my account</option>
-  <option value="signup">I have a question before I sign up</option>
-  <option value="request">I want to request a feature</option>
-  <option value="billing">I have a billing question</option>
-  <option value="email">I'm not receiving emails</option>
-  <option value="confused">I'm confused about how something works</option>
-  <option value="broken">I think something is broken</option>
-  <option value="other">Other</option>
-</select>
-        
-What’s your question, comment, or issue? REQUIRED
-Share all the details. The more we know, the better we can help you.
-
-Send us a file, screenshot, or document
-Hold the shift key to select multiple files.
-
-
-What’s your email address? REQUIRED
-This is where we’ll get back to you. Double check that it’s right.
-
-Enter your email address
-What’s your account URL?
-Example: https://basecamp.com/8675309
-
-Enter your account URL...
-Our current response time is about 6 minutes.
-Expect a reply between 8am - 6:30pm Central Time Monday through Friday.
-
-<div class="py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3 mx-auto mt-16">
+<div class="py-8 px-8 w-full sm:w-full md:w-1/2 lg:w-1/2 mx-auto mt-16">
+    
     
     <div class="mt-4 mb-4">
+      <span class="text-3xl font-black">Need some help?</span>
+    </div>
+
+    <div data-controller="helpForm">
+  
+      <%= form_tag send_for_help_path(), 'data-target' => "helpForm.form", :method => :post, :id => "helpForm_form", :authenticity_token => true, :remote => true do %>
+    	  
+    	    
+            <div class="w-full">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="question_type">
+                What is your question about?
+              </label>
+              
+              <div class="relative">
+                <select id="question_type" name="question_type" data-target="helpForm.questionTypeInput" class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
+                  <option value="">Please select one...</option>
+                  <option value="login">I can't access my account</option>
+                  <option value="signup">I have a question before I sign up</option>
+                  <option value="request">I want to request a feature</option>
+                  <option value="billing">I have a billing question</option>
+                  <option value="email">I'm not receiving emails</option>
+                  <option value="confused">I'm confused about how something works</option>
+                  <option value="broken">I think something is broken</option>
+                  <option value="other">Other</option>
+                </select>
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                  <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                </div>
+              </div>
+              <p class="text-red-500 text-xs italic hidden" data-target="helpForm.questionTypeError"></p>
+            </div>
+          
+    
+         
+            <div class="w-full mt-6">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="question_type">
+                What is your question?
+              </label>
+              <textarea rows=6 id="question" name="question" data-target="helpForm.questionInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder=""></textarea>
+              <p class="text-red-500 text-xs italic hidden" data-target="helpForm.questionError"></p>
+            </div>
+      
+          
+       
+            <div class="w-full mt-6">
+              <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
+                What's your email address?
+              </label>
+              <input id="email" name="email" data-target="helpForm.emailInput" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" placeholder="your@email.com">
+              <p class="text-red-500 text-xs italic hidden" data-target="helpForm.emailError"></p>
+            </div>
+       
+          
+         
+            <div class="w-full mt-6">
+              <div class="">
+                <%= submit_tag "Send for help", 'data-action' => 'click->helpForm#send', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "helpForm_submit_button" %>
+              </div>
+            </div>
+          
+      <% end %>
+      
+      <div class="flex hidden py-10" data-target="helpForm.errorMessageHolder" id="helpForm_errorMessageHolder">
+        
+        <div class="">
+          <span data-target="helpForm.errorMessage" id="helpForm_errorMessage" class="text-red-500 text-md">
+    
+          </span>
+        </div>
+        
+      </div>
+      
+      <div class="flex hidden py-10 mb-12" data-target="helpForm.processingMessageHolder" id="helpForm_processingMessageHolder">
+        
+        <div class="">
+          <span data-target="helpForm.processingMessage" id="helpForm_processingMessage" class="text-gray-700 text-md">
+    
+          </span>
+        </div>
+        
+        <div class="mt-3 ml-1" data-target="helpForm.threeDotsHolder" id="helpForm_threeDotsHolder">
+          <img src="<%= image_path('dots.svg') %>"/>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    <div class="mt-10 mb-4">
       <div class="text-2xl font-black leading-tight">What's BlogEmbed again?</div>
       <p class="text-lg">
         BlogEmbed.com is a tool made for influencers and content creators who need the ability to control access to their content and need the same ease-of-use as embedding video content. Just like many content creators who embed their video content on their websites using iFrames, now with BlogEmbed.com you can do the same thing for your blog posts content.

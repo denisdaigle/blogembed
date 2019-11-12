@@ -1,0 +1,16 @@
+<% if @result == "success" %>
+
+  //show the error message.
+  document.getElementById('helpForm_processingMessage').textContent = '<%= @success_message %>';
+  document.getElementById('helpForm_threeDotsHolder').classList.add("hidden");
+
+<% else %>
+
+  //show the error message.
+  document.getElementById('helpForm_processingMessageHolder').classList.add("hidden");
+  document.getElementById('helpForm_form').classList.remove("hidden");
+  document.getElementById('helpForm_errorMessageHolder').classList.remove("hidden");
+  document.getElementById('helpForm_errorMessage').textContent = '<%= @error_message %>';
+  document.getElementById('helpForm_errorMessage').classList.remove("hidden");
+  
+<% end %>
