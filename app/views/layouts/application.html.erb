@@ -37,29 +37,29 @@
           </a>
         </div>
         <% if cookies[:db_session_token].present? %>
-        <div class="mt-4 mr-2">
-          <a href="/blogs">
-            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Blogs</div>
-          </a>
-        </div>
-        <div class="mt-4 mr-2">
-          <a href="/upgrade">
-            <% if @account_type.present? && @account_type == "hero" %>
-              <span class="inline-block bg-blue-500 rounded-full px-3 py-1 text-md font-semibold text-gray-100">Hero</span>
-            <% else %>
-              <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Upgrade</div>
-            <% end %>
-          </a>
-        </div>
-        <div class="mt-4 mr-2">
-          <a href="/logout" class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold" data-remote="true">Log out</a>
-        </div>
+          <div class="mt-4 mr-2">
+            <a href="/blogs">
+              <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Blogs</div>
+            </a>
+          </div>
+          <div class="mt-4 mr-2">
+            <a href="/upgrade">
+              <% if @account_type.present? && @account_type == "hero" %>
+                <span class="inline-block bg-blue-500 rounded-full px-3 py-1 text-md font-semibold text-gray-100">Hero</span>
+              <% else %>
+                <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Upgrade</div>
+              <% end %>
+            </a>
+          </div>
+          <div class="mt-4 mr-2">
+            <a href="/logout" class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold" data-remote="true">Log out</a>
+          </div>
         <% else %>
-        <div class="mt-4 mr-2">
-          <a href="/login">
-            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Login</div>
-          </a>
-        </div>
+          <div class="mt-4 mr-2">
+            <a href="/login">
+              <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Login</div>
+            </a>
+          </div>
         <% end %>
       </div>
       
