@@ -127,6 +127,13 @@
               <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Blogs</div>
             </a>
           </div>
+          <% if @account_type.present? && @account_type == "trial" %>
+            <div>
+              <a href="/upgrade">
+                <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Upgrade</div>
+              </a>
+            </div>
+          <% end %>
         <% end %>
         <div>
           <a href="/help"> 
