@@ -8,31 +8,21 @@
     </div>
       
     <p class="text-lg text-gray-800 mt-4">BlogEmbed is an access-control based blog embedding service for influencers and content creators. Write them here and embed them privately with iframes on your website, just like you would branded video content. Skip the CMS, control the access and experience.</p>
-    <!--  Made for readbility-first, not meant to let you match your style on your website or mobile device. Reading style 1, reading style 2, etc... -->  
-    <div data-controller="signUp" class="mt-8 h-24">
+    
+    <div data-controller="signUp" class="mt-16 h-24 mb-10">
   
       <%= form_tag user_sign_up_path(), 'data-target' => "signUp.form", :method => :post, :id => "signUp_form", :authenticity_token => true, :remote => true do %>
       
-      	  <div class="flex">
-      	    
-      	    <div class="px-3">
-      	      
-      	      <div class="sm:focus-within:shadow-outline rounded-lg">
-                   <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
-                     <input data-target="signUp.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
-                     <%= submit_tag "try free", 'data-action' => 'click->signUp#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "signUp_submit_button" %>
-                   </div>
-              </div>
-      	      
-      	    </div>
-      	    
-      	    <div class="px-3 mt-4">
-      	      <a href="/login">
-      	        or Log in!
-      	      </a>
-      	    </div>
+    	  <div class="w-full">
+    	    
+    	    <div class="sm:focus-within:shadow-outline rounded-lg">
+             <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
+               <input data-target="signUp.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
+               <%= submit_tag "try free", 'data-action' => 'click->signUp#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "signUp_submit_button" %>
+             </div>
+          </div>
 
-      	  </div>
+    	  </div>
           
     	  <span data-target="signUp.error" id="signUp_error" class="hidden text-red-500 text-sm">
     		  
