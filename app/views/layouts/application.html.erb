@@ -26,11 +26,13 @@
       </div>
 
       <div class="flex flex-wrap">
-        <div class="mt-4 mr-2">
-          <a href="/">
-            <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Home</div>
-          </a>
-        </div>
+        <% unless cookies[:db_session_token].present? %>
+          <div class="mt-4 mr-2">
+            <a href="/">
+              <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Home</div>
+            </a>
+          </div>
+        <% end %>
         <div class="mt-4 mr-2">
           <a href="/help">
             <div class="inline-block text-md px-4 py-2 leading-none rounded text-gray-700 hover:text-gray-900 font-bold">Help</div>
@@ -109,11 +111,13 @@
         <div>
           <span class="text-md px-4 py-2 leading-none rounded text-gray-100 font-bold">Company</span>
         </div>
-        <div class="mt-6">
-          <a href="/">
-            <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Home</div>
-          </a>
-        </div>
+        <% unless cookies[:db_session_token].present? %>
+          <div class="mt-6">
+            <a href="/">
+              <div class="text-md px-4 py-2 leading-none rounded text-gray-100 hover:text-gray-500 font-light">Home</div>
+            </a>
+          </div>
+        <% end %>
         <% unless cookies[:db_session_token].present? %>
           <div>
             <a href="/login">

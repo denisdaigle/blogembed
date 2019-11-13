@@ -1,0 +1,50 @@
+<div data-controller="howDoesItWork">
+    
+    <p class="text-lg">
+        It’s as simple as creating a blog and post, adding a domain that’s permitted to embed it and copy and pasting the provided HTML into your own code.
+    </p>
+    
+    <div class="mt-4">
+        <a href="#" data-remote="true" class="text-lg underline" data-action="click->howDoesItWork#toggle">
+            Here's what that looks like:
+        </a>
+    </div>
+
+    <div data-target="howDoesItWork.content" class="hidden">
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 1 - Create a post
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_1.png') %>"/>
+        
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 2 - Publish the post
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_2.png') %>"/>
+        
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 3 - Grab the iframe HTML
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_3.png') %>"/>
+        
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 4 - Add the domain that is allowed to render this post
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_4.png') %>"/>
+        
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 5 - Paste the iframe HTML into your code where you want it.
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_5.png') %>"/>
+        
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 6 - View the post content on your website only.
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_6.png') %>"/>
+        
+        <p class="text-lg mt-6 mb-4 font-bold">
+        Step 7 - Trying to copy and paste this code to another website or going directly using the browser will provide that user with an error message. You're content is now access-controlled!
+        </p>
+        <img class="border shadow rounded" src="<%= image_path('step_7.png') %>"/>
+    </div>
+    
+</div>

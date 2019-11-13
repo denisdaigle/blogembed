@@ -57,7 +57,6 @@
             </div>
        
           
-         
             <div class="w-full mt-6">
               <div class="">
                 <%= submit_tag "Send for help", 'data-action' => 'click->helpForm#send', :class => "shadow bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded", :id => "helpForm_submit_button" %>
@@ -105,10 +104,8 @@
     </div>
     
     <div class="mt-10 mb-4">
-      <div class="text-2xl font-black leading-tight">How does it work?</div>
-      <p class="text-lg">
-        It’s as simple as creating a blog and post, adding a domain that’s permitted to embed it and copy and pasting the provided HTML into your own code.
-      </p>
+      <div class="text-2xl font-black leading-tight" id="how_does_it_work">How does it work?</div>
+      <%= render '/help/how_does_it_work' %>
     </div>
     
     <div class="mt-10 mb-4">
@@ -124,5 +121,48 @@
         Happy to <a href="/help" class="underline">help</a>, we're all in this together.
       </p>
     </div>
+    
+    <% unless cookies[:db_session_token].present? %>
+    
+      <div data-controller="signUp" class="mt-24 h-24">
+    
+        <%= form_tag user_sign_up_path(), 'data-target' => "signUp.form", :method => :post, :id => "signUp_form", :authenticity_token => true, :remote => true do %>
+        
+        	  <div class="flex">
+        	    
+        	    <div class="px-3">
+        	      
+        	      <div class="sm:focus-within:shadow-outline rounded-lg">
+                     <div class="max-w-md sm:flex sm:shadow sm:rounded-lg sm:overflow-hidden">
+                       <input data-target="signUp.input" type="email" id="dd_emailField" name="email" required="" placeholder="Start with your email" class="shadow sm:shadow-none block w-full rounded-lg focus:border-gray-700 border border-transparent sm:rounded-r-none mb-4 sm:mb-0 text-black sm:flex-1 px-6 py-4 lg:py-5 focus:outline-none">
+                       <%= submit_tag "try free", 'data-action' => 'click->signUp#submit', :class => "text-sm shadow sm:shadow-none block w-full sm:w-auto rounded-lg sm:rounded-none focus:outline-none bg-gray-700 hover:bg-gray-900 focus:bg-gray-900 text-white text-shadow uppercase tracking-wide font-semibold px-6 py-4 lg:py-5", :id => "signUp_submit_button" %>
+                     </div>
+                </div>
+        	      
+        	    </div>
+        	    
+        	    <div class="px-3 mt-4">
+        	      <a href="/login">
+        	        or Log in!
+        	      </a>
+        	    </div>
+  
+        	  </div>
+            
+      	  <span data-target="signUp.error" id="signUp_error" class="hidden text-red-500 text-sm">
+      		  
+      	  </span>		   
+      	
+        <% end %>
+      
+        <span data-target="signUp.thankyou" class="text-gray-700 py-10 text-xl" id="signUp_thankyou"></span>	
+        
+        <span class="text-green-500 hidden text-xl" id="server_check">	&#10003;</span>
+        
+      </div>
+        
+    </div>
+    
+    <% end %>
 
 </div>
