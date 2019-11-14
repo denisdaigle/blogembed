@@ -1,5 +1,7 @@
 class UpgradeController < ApplicationController
   
+  skip_before_action :verify_authenticity_token, :only => [:process_upgrade]
+
   before_action :check_db_session_token
   
   def check_db_session_token
@@ -98,10 +100,10 @@ class UpgradeController < ApplicationController
   
   def process_upgrade
     
-    #Let's check to see what type of account this user is using.
+    #Stripe passes: params[:stripeToken] as a string like "tok_1FehLpI6NztZfsjNOHJHJASD"
     
     #build the query to send to the API server    
-    query = {:db_session_token => cookies[:db_session_token]}
+    query = {:db_session_token => cookies[:db_session_token], :stripeToken => params[:stripeToken]}
       
     #Grab the variables for this connection from the secrets.yml file.
     headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
@@ -135,7 +137,7 @@ class UpgradeController < ApplicationController
     
     #handle html or js
     respond_to do |format|
-      format.js { render action: 'process_upgrade_results' }
+      format.html { render action: 'offer' }
     end
     
   end
