@@ -56,7 +56,6 @@ export default class extends Controller {
             });
         });
 
-
     }
 
     showPurchaseFormHolder(){
@@ -77,4 +76,5 @@ export default class extends Controller {
         // Submit the form
         form.submit();
     }
+    
 }
