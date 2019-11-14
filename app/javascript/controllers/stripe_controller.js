@@ -1,7 +1,8 @@
 import {  Controller } from "stimulus"
 
 export default class extends Controller {
-    static targets = [ 'cardElement', 'cardErrors', 'form', 'upgradeButton', 'purchaseFormHolder' ]
+    
+    static targets = [ 'cardElement', 'cardErrors', 'form', 'upgradeButton', 'purchaseFormHolder', 'submitButton' ]
 
     connect() {
         var stripe = Stripe(this.element.getAttribute("data-stripe-public-key"));
@@ -62,7 +63,7 @@ export default class extends Controller {
         this.upgradeButtonTarget.classList.add("hidden");
         this.purchaseFormHolderTarget.classList.remove("hidden");
     }
-
+    
     // Submit the form with the token ID.
     stripeTokenHandler(token) {
         // Insert the token ID into the form so it gets submitted to the server
@@ -72,6 +73,9 @@ export default class extends Controller {
         hiddenInput.setAttribute('name', 'stripeToken');
         hiddenInput.setAttribute('value', token.id);
         form.appendChild(hiddenInput);
+
+        //prevent overclicking.
+        this.submitButtonTarget.classList.add("hidden");
 
         // Submit the form
         form.submit();

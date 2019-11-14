@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   #upgrade account
   get '/upgrade' => "upgrade#offer"
   post '/process_upgrade' => "upgrade#process_upgrade"
+  get '/payment_issue' => "upgrade#payment_issue"
 
   root "pages#home"
   

@@ -1,3 +1,3 @@
 development:
-    api_domain: "http://54.91.227.251:8080"
+    api_domain: "http://35.175.150.121:8080"
     webserver_domain: "http://35.175.140.221:8080"

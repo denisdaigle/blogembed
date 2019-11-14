@@ -136,11 +136,18 @@ class UpgradeController < ApplicationController
     end
     
     if @error_message.present?
-      redirect_to "/upgrade?info=#{@error_message}" #Create info popup
+      redirect_to "/payment_issue?error_message=#{@error_message}" #Create info popup
     else
       redirect_to "/upgrade"
     end
     
   end
+  
+  def payment_issue
+    #will render payment_issue.html.erb
+    
+    @error_message = params[:error_message]
+    
+  end  
   
 end
