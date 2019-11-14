@@ -109,7 +109,7 @@ class UpgradeController < ApplicationController
     headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
     
     #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/process_upgrade service on the API.
-    process_upgrade_call = HTTParty.get(
+    process_upgrade_call = HTTParty.post(
       Rails.configuration.access_point['api_domain'] + '/v1/process_upgrade.json', 
       :query => query,
       :headers => headers
@@ -135,9 +135,10 @@ class UpgradeController < ApplicationController
     
     end
     
-    #handle html or js
-    respond_to do |format|
-      format.html { render action: 'offer' }
+    if @error_message.present?
+      redirect_to "/upgrade?info=#{@error_message}" #Create info popup
+    else
+      redirect_to "/upgrade"
     end
     
   end
