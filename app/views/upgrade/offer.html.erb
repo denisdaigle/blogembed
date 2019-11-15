@@ -83,7 +83,7 @@
             <form
               data-controller="stripe"
               data-target="stripe.form"
-              data-stripe-public-key="<%= Rails.application.secrets['stripe_public_key']%>"
+              data-stripe-public-key="<%= Rails.application.secrets['stripe_public_key'] %>"
               action="/process_upgrade" method="post">
               <div class="form-row">
   
@@ -123,9 +123,6 @@
       
   </div>
   
-
-
-
 
   <div class="py-8 px-8 w-full sm:w-full md:w-2/3 lg:w-2/3 mx-auto mt-16">
     

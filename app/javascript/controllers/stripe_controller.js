@@ -5,7 +5,7 @@ export default class extends Controller {
     static targets = [ 'cardElement', 'cardErrors', 'form', 'upgradeButton', 'purchaseFormHolder', 'submitButton' ]
 
     connect() {
-        var stripe = Stripe(this.element.getAttribute("data-stripe-public-key"));
+        var stripe = Stripe(this.element.getAttribute("data-stripe-public-key")); //ignore Stripe warning.
         var elements = stripe.elements();
         var style = {
             base: {
