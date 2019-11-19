@@ -1,6 +1,6 @@
 development:
-    api_domain: "http://3.94.101.27:8080"
-    webserver_domain: "http://35.175.140.221:8080"
+    api_domain: "http://18.212.7.108:8080"
+    webserver_domain: "http://52.87.204.171:8080"
     
 production:
     api_domain: "https://api.blogembed.com"
