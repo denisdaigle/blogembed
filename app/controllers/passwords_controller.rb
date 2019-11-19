@@ -12,7 +12,7 @@ class PasswordsController < ApplicationController
         query = {:email => params[:email]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers 
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/process_request_reset_password_link service on the API.
         process_request_reset_password_link = HTTParty.post(
@@ -66,7 +66,7 @@ class PasswordsController < ApplicationController
         query = {:password => params[:password], :password_reset_code => params[:password_reset_code]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/process_new_password service on the API.
         process_new_password_call = HTTParty.post(

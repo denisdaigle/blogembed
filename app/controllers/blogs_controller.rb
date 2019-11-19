@@ -11,7 +11,7 @@ class BlogsController < ApplicationController
       query = {:db_session_token => cookies[:db_session_token]}
 
       #Grab the variables for this connection from the secrets.yml file.
-      headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+      headers = set_headers
       
       #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/check_db_session_token service on the API.
       check_db_session_token_call = HTTParty.get(
@@ -74,7 +74,7 @@ class BlogsController < ApplicationController
             query = {:post_uid => params[:uid], :requesting_url => @requesting_url}
             
             #Grab the variables for this connection from the secrets.yml file.
-            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            headers = set_headers 
             
             #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_post_from_database service on the API.
             fetch_post_for_embed = HTTParty.get(
@@ -134,7 +134,7 @@ class BlogsController < ApplicationController
     query = {:db_session_token => cookies[:db_session_token]}
     
     #Grab the variables for this connection from the secrets.yml file.
-    headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+    headers = set_headers
     
     #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
     fetch_blogs_from_database = HTTParty.get(
@@ -181,7 +181,7 @@ class BlogsController < ApplicationController
         query = {:blog_name => params[:blog_name], :post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
         save_blog_and_post_content_call = HTTParty.post(
@@ -232,7 +232,7 @@ class BlogsController < ApplicationController
         query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_post_from_database service on the API.
         fetch_post_from_database = HTTParty.get(
@@ -285,7 +285,7 @@ class BlogsController < ApplicationController
         query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_post_from_database service on the API.
         fetch_post_from_database = HTTParty.get(
@@ -338,7 +338,7 @@ class BlogsController < ApplicationController
         query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/delete_post service on the API.
         delete_post_call = HTTParty.get(
@@ -390,7 +390,7 @@ class BlogsController < ApplicationController
         query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :post_uid => params[:post_uid]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers 
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
         save_post_changes = HTTParty.post(
@@ -439,7 +439,7 @@ class BlogsController < ApplicationController
         query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/delete_blog service on the API.
         delete_post_call = HTTParty.get(
@@ -509,7 +509,7 @@ class BlogsController < ApplicationController
         query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :blog_uid => params[:blog_uid]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/create_post service on the API.
         create_post_coll = HTTParty.post(
@@ -560,7 +560,7 @@ class BlogsController < ApplicationController
         query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_blog_details_from_database service on the API.
         fetch_blog_details_from_database = HTTParty.get(
@@ -611,7 +611,7 @@ class BlogsController < ApplicationController
         query = {:blog_name => params[:blog_name], :blog_uid => params[:blog_uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_details_changes service on the API.
         save_blog_details_changes_call = HTTParty.post(
@@ -662,7 +662,7 @@ class BlogsController < ApplicationController
         query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers 
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/publish_post service on the API.
         publish_post_call = HTTParty.get(
@@ -715,7 +715,7 @@ class BlogsController < ApplicationController
         query = {:post_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/unpublish_post service on the API.
         unpublish_post_call = HTTParty.get(
@@ -789,7 +789,7 @@ class BlogsController < ApplicationController
         query = {:permitted_domain => params[:permitted_domain], :blog_uid => params[:blog_uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers 
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/add_permitted_domain service on the API.
         add_permitted_domain_call = HTTParty.post(
@@ -840,7 +840,7 @@ class BlogsController < ApplicationController
         query = {:permitted_domain_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/add_permitted_domain service on the API.
         remove_permitted_domain_call = HTTParty.get(
@@ -891,7 +891,7 @@ class BlogsController < ApplicationController
         query = {:blog_uid => params[:uid], :db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers
         
         #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/fetch_blog_details service on the API.
         fetch_blog_details = HTTParty.get(

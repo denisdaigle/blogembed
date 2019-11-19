@@ -13,7 +13,7 @@ class UpgradeController < ApplicationController
       query = {:db_session_token => cookies[:db_session_token]}
 
       #Grab the variables for this connection from the secrets.yml file.
-      headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+      headers = set_headers 
       
       #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/check_db_session_token service on the API.
       check_db_session_token_call = HTTParty.get(
@@ -68,7 +68,7 @@ class UpgradeController < ApplicationController
     query = {:db_session_token => cookies[:db_session_token]}
       
     #Grab the variables for this connection from the secrets.yml file.
-    headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+    headers = set_headers
     
     #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/check_account_type service on the API.
     check_account_type = HTTParty.get(
@@ -108,7 +108,7 @@ class UpgradeController < ApplicationController
       query = {:db_session_token => cookies[:db_session_token], :stripeToken => params[:stripeToken]}
         
       #Grab the variables for this connection from the secrets.yml file.
-      headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+      headers = set_headers
       
       #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/process_upgrade service on the API.
       process_upgrade_call = HTTParty.post(

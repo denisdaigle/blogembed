@@ -9,7 +9,7 @@ class UsersController < ApplicationController
           query = {:email => params[:email]}
     
           #Grab the variables for this connection from the secrets.yml file.
-          headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+          headers = set_headers
           
           #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/sign_up service on the API.
           sign_up_user = HTTParty.post(
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
             query = {:first_name => params[:first_name], :last_name => params[:last_name], :password => params[:password], :uid => params[:uid]}
             
             #Grab the variables for this connection from the secrets.yml file.
-            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            headers = set_headers 
             
             #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_profile_setup service on the API.
             save_profile_data = HTTParty.post(
@@ -111,7 +111,7 @@ class UsersController < ApplicationController
             query = {:sign_up_code => params[:sign_up_code]}
             
             #Grab the variables for this connection from the secrets.yml file.
-            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            headers = set_headers
             
             #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/sign_up service on the API.
             validate_sign_up_code = HTTParty.get(
@@ -173,7 +173,7 @@ class UsersController < ApplicationController
         query = {:db_session_token => cookies[:db_session_token]}
         
         #Grab the variables for this connection from the secrets.yml file.
-        headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+        headers = set_headers 
         
         #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/nil_db_session_token service on the API.
         nil_db_session_token = HTTParty.get(
@@ -201,7 +201,7 @@ class UsersController < ApplicationController
             query = {:email => params[:email], :password => params[:password]}
             
             #Grab the variables for this connection from the secrets.yml file.
-            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            headers = set_headers 
             
             #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/process_login service on the API.
             process_login_call = HTTParty.post(

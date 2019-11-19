@@ -13,7 +13,7 @@ class HelpController < ApplicationController
           query = {:question_type => params[:question_type], :question => params[:question], :email => params[:email]}
     
           #Grab the variables for this connection from the secrets.yml file.
-          headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+          headers = set_headers 
           
           #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/send_for_help service on the API.
           send_for_help_call = HTTParty.post(

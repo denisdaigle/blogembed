@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
             query = {:db_session_token => cookies[:db_session_token]}
               
             #Grab the variables for this connection from the secrets.yml file.
-            headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            #headers = { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret } 
+            headers = set_headers
             
             #Use HTTParty with the address for the API server direftly (and load balancer in production) to a /v1/check_db_session_token service on the API.
             check_account_type = HTTParty.get(
@@ -57,5 +58,15 @@ class ApplicationController < ActionController::Base
         end
         
     end
+    
+    protected
+    
+    def set_headers
+        if Rails.env == "production"
+			return { 'X-Api-Access-Key' => ENV["API_ACCESS_KEY"], 'X-Api-Access-Secret' => ENV["API_ACCESS_SECRET"] }
+		else
+			return { 'X-Api-Access-Key' => Rails.application.secrets.api_access_key, 'X-Api-Access-Secret' => Rails.application.secrets.api_access_secret }
+    	end
+	end
     
 end
