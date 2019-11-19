@@ -83,7 +83,7 @@
             <form
               data-controller="stripe"
               data-target="stripe.form"
-              data-stripe-public-key="<%= Rails.application.secrets['stripe_public_key'] %>"
+              data-stripe-public-key='<% if Rails.env == "production"%> <%= ENV["STRIPE_PUBLIC_KEY"] %> <% else %> <%= Rails.application.secrets["stripe_public_key"] %> <% end %>'
               action="/process_upgrade" method="post">
               <div class="form-row">
   
