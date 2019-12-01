@@ -386,22 +386,87 @@ class BlogsController < ApplicationController
     #error check if blog_name, post_title and post_content was provided
     if params[:post_title].present? && params[:post_content].present? && params[:post_uid].present? && cookies[:db_session_token].present?
 	       
-        #build the query to send to the API server    
-        query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :post_uid => params[:post_uid]}
-        
-        #Grab the variables for this connection from the secrets.yml file.
-        headers = set_headers 
-        
-        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
-        save_post_changes = HTTParty.post(
-            Rails.configuration.access_point['api_domain'] + '/v1/save_post_changes.json', 
-            :query => query,
-            :headers => headers
-        )
-        
-        @result = save_post_changes["result"]
-        @message = save_post_changes["message"] #Message comes from the API to help with future I18n multilingualism.
-        @payload = save_post_changes["payload"]
+	    #figure out how big post data is.
+	    @post_content = params[:post_content]
+
+	    #nginx has a char limit of 10240.
+	    if @post_content.size > 5000
+
+            #send multiple package to binder and then expect a final response back from an empty update call.
+            #create temp field until all pieces arrived.
+            @partial_content = ""
+            
+            @total_size = @post_content.size
+            @amount_of_partials = (@total_size / 5000) + 1 #Adding one for the remainder.
+            
+            start_index = 0
+            end_index = 5000
+            partial_index = 1
+            @amount_of_partials.times do
+
+                partial_content = @post_content[start_index..end_index]
+                
+                #build the query to send to the API server    
+                query = {:post_title => params[:post_title], :total_partials_to_expect => @amount_of_partials, :partial_index => partial_index, :partial_content => partial_content, :db_session_token => cookies[:db_session_token], :post_uid => params[:post_uid]}
+                
+                #Grab the variables for this connection from the secrets.yml file.
+                headers = set_headers 
+                
+                #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
+                save_post_partial_changes = HTTParty.post(
+                    Rails.configuration.access_point['api_domain'] + '/v1/save_partial_post_content_update.json', 
+                    :query => query,
+                    :headers => headers
+                )
+                
+                partial_index += 1
+                start_index = end_index + 1
+                end_index = end_index + 5000
+                
+                
+                #We should now have the usual returned payload after the last partial.
+                @result = save_post_partial_changes["result"]
+                @message = save_post_partial_changes["message"] #Message comes from the API to help with future I18n multilingualism.
+                @payload = save_post_partial_changes["payload"]
+            
+            end
+            
+
+
+	    else
+	        
+	        #Send as single package and process.
+	        
+	        #build the query to send to the API server    
+            query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :post_uid => params[:post_uid]}
+            
+            #Grab the variables for this connection from the secrets.yml file.
+            headers = set_headers 
+            
+            begin
+                
+                #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
+                save_post_changes = HTTParty.post(
+                    Rails.configuration.access_point['api_domain'] + '/v1/save_post_changes.json', 
+                    :query => query,
+                    :headers => headers
+                )
+    
+            rescue Exception => e
+                puts e.message
+                puts e.backtrace.inspect
+            else
+                # other exception
+            ensure
+                # always executed
+            end
+            
+            @result = save_post_changes["result"]
+            @message = save_post_changes["message"] #Message comes from the API to help with future I18n multilingualism.
+            @payload = save_post_changes["payload"]
+	        
+	    end      
+	       
 
         #ITTT result.
         if @result == "success"
@@ -504,23 +569,115 @@ class BlogsController < ApplicationController
       
     #error check if blog_name, post_title and post_content was provided
     if params[:post_title].present? && params[:post_content].present? && params[:blog_uid].present? && cookies[:db_session_token].present?
-	       
-        #build the query to send to the API server    
-        query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :blog_uid => params[:blog_uid]}
         
-        #Grab the variables for this connection from the secrets.yml file.
-        headers = set_headers
-        
-        #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/create_post service on the API.
-        create_post_coll = HTTParty.post(
-            Rails.configuration.access_point['api_domain'] + '/v1/create_post.json', 
-            :query => query,
-            :headers => headers
-        )
-        
-        @result = create_post_coll["result"]
-        @message = create_post_coll["message"] #Message comes from the API to help with future I18n multilingualism.
-        @payload = create_post_coll["payload"]
+        #figure out how big post data is.
+	    @post_content = params[:post_content]
+
+	    #nginx has a char limit of 10240.
+	    if @post_content.size > 5000
+
+	        #First, let's create the post, but empty. Then we will call to updated it by partials.
+            #build the query to send to the API server    
+            query = {:post_title => params[:post_title], :post_content => "partial_update_in_progress", :db_session_token => cookies[:db_session_token], :blog_uid => params[:blog_uid]}
+            
+            #Grab the variables for this connection from the secrets.yml file.
+            headers = set_headers
+            
+            #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/create_post service on the API.
+            begin
+                create_post_call = HTTParty.post(
+                    Rails.configuration.access_point['api_domain'] + '/v1/create_post.json', 
+                    :query => query,
+                    :headers => headers
+                )
+            rescue Exception => e
+                puts e.message
+                puts e.backtrace.inspect
+            else
+                # other exception
+            ensure
+                # always executed
+            end
+            
+            @create_result = create_post_call["result"]
+            @create_message = create_post_call["message"] #Message comes from the API to help with future I18n multilingualism.
+            @create_payload = create_post_call["payload"]
+            puts "#{@create_payload["post"]}"
+            @post_uid = @create_payload["post"]["post_uid"]
+            
+            #send multiple package to binder and then expect a final response back from an empty update call.
+            #create temp field until all pieces arrived.
+            @partial_content = ""
+            
+            @total_size = @post_content.size
+            @amount_of_partials = (@total_size / 5000) + 1 #Adding one for the remainder.
+            
+            start_index = 0
+            end_index = 5000
+            partial_index = 1
+            @amount_of_partials.times do
+
+                partial_content = @post_content[start_index..end_index]
+                
+                #build the query to send to the API server    
+                query = {:post_title => params[:post_title], :total_partials_to_expect => @amount_of_partials, :partial_index => partial_index, :partial_content => partial_content, :db_session_token => cookies[:db_session_token], :post_uid => @post_uid}
+                
+                #Grab the variables for this connection from the secrets.yml file.
+                headers = set_headers 
+                
+                #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
+                save_post_partial_changes = HTTParty.post(
+                    Rails.configuration.access_point['api_domain'] + '/v1/save_partial_post_content_update.json', 
+                    :query => query,
+                    :headers => headers
+                )
+                
+                partial_index += 1
+                start_index = end_index + 1
+                end_index = end_index + 5000
+                
+                
+                #We should now have the usual returned payload after the last partial.
+                @result = save_post_partial_changes["result"]
+                @message = save_post_partial_changes["message"] #Message comes from the API to help with future I18n multilingualism.
+                @payload = save_post_partial_changes["payload"]
+            
+            end
+
+	    else
+	        
+	        #Send as single package and process.
+	        
+	        #build the query to send to the API server    
+            query = {:post_title => params[:post_title], :post_content => params[:post_content], :db_session_token => cookies[:db_session_token], :post_uid => params[:post_uid]}
+            
+            #Grab the variables for this connection from the secrets.yml file.
+            headers = set_headers 
+            
+            begin
+                
+                #Use HTTParty with the address for the API server directly (and load balancer in production) to a /v1/save_blog_and_post_content service on the API.
+                save_post_changes = HTTParty.post(
+                    Rails.configuration.access_point['api_domain'] + '/v1/save_post_changes.json', 
+                    :query => query,
+                    :headers => headers
+                )
+    
+            rescue Exception => e
+                puts e.message
+                puts e.backtrace.inspect
+            else
+                # other exception
+            ensure
+                # always executed
+            end
+            
+            @result = save_post_changes["result"]
+            @message = save_post_changes["message"] #Message comes from the API to help with future I18n multilingualism.
+            @payload = save_post_changes["payload"]
+	        
+	    end
+                
 
         #ITTT result.
         if @result == "success"
