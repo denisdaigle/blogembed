@@ -10,7 +10,7 @@ export default class extends Controller {
 		
 		var iframe_content = this.iframeParentTarget.value
 		var captured_height = this.contentTarget.clientHeight
-		this.iframeParentTarget.value = iframe_content.replace('estimated_display_dimensions', 'width:100%,height:' + captured_height + 'px')
+		this.iframeParentTarget.value = iframe_content.replace('estimated_display_dimensions', 'width:100%;height:' + captured_height + 'px;')
 
 	}
 
