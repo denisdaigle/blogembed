@@ -1,5 +1,5 @@
 development:
-    api_domain: "http://3.82.98.162:8080"
+    api_domain: "http://3.84.116.195:8080"
     webserver_domain: "http://54.152.228.71:8080"
     
 production:
