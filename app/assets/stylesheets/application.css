@@ -49,6 +49,8 @@
     padding:10px;
     font-size:85%;
     font-family: Courier;
+    overflow-x: scroll;
+    
 }
 
 .embedded_post a {
